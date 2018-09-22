@@ -1,13 +1,14 @@
 #ifndef CALCULADORA
-#define CALCULADORA
 #include <iostream>
 
 class Calculadora {
+private:
 
 public:
 	Calculadora();
+
 	~Calculadora();
-	bool esCorrecta(std::string);
+
 };
 
 #endif // !CALCULADORA
