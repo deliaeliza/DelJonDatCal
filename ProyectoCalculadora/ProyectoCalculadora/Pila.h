@@ -1,12 +1,12 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef PILA_H
+#define PILA_H
 
 #include <iostream>
 
-class Stack {
+class Pila {
 public:
-	Stack();
-	~Stack();
+	Pila();
+	~Pila();
 
 	void push(const int);
 	int pop();

@@ -1,14 +1,14 @@
 #include "Pila.h"
 
-Stack::Stack() {
+Pila::Pila() {
 	top = nullptr;
 }
 
 
-Stack::~Stack() {
+Pila::~Pila() {
 }
 
-void Stack::push(const int item) {
+void Pila::push(const int item) {
 	Nodo* nuevo;
 
 	try
@@ -25,7 +25,7 @@ void Stack::push(const int item) {
 	top = nuevo;
 }
 
-int Stack::pop() {
+int Pila::pop() {
 	if (estaVacia())
 		return -1;
 
@@ -40,10 +40,10 @@ int Stack::pop() {
 	return valor;
 }
 
-int Stack::peek() {
+int Pila::peek() {
 	return (!estaVacia() ? top->elemento : -1);
 }
 
-bool Stack::estaVacia() {
+bool Pila::estaVacia() {
 	return top == nullptr;
 }
