@@ -6,21 +6,13 @@
 
 #include <iostream>
 
-// Estructura que contiene los datos de cada nodo de la lista
-// En este caso se implementa una lista de enteros
-struct Nodo {
-	int valor;
-	Nodo* next;
-	Nodo* prev;
-};
-
 // Contiene las operaciones de la Lista Enlazada
 // Note que el puntero al primer nodo de la lista
 // se mantiene oculto al usuario (privado)
-class ListaDoble {
+class Lista {
 public:
-	ListaDoble();
-	~ListaDoble();
+	Lista();
+	~Lista();
 	int insertarElemento(int item);
 	int borrarElemento(int item);
 	int buscarElemento(int item);
@@ -29,6 +21,11 @@ public:
 	void borrarLista();
 	bool listaVacia();
 private:
+	struct Nodo {
+		int valor;
+		Nodo* next;
+		Nodo* prev;
+	};
 	Nodo * inicio;
 };
 
