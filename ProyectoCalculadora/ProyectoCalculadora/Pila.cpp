@@ -8,27 +8,25 @@ Pila::Pila() {
 Pila::~Pila() {
 }
 
-void Pila::push(const int item) {
+void Pila::push(const std::string item) {
 	Nodo* nuevo;
-
 	try {
 		nuevo = new Nodo;
 	} catch (std::bad_alloc exception) {
 		return;
 	}
-
 	nuevo->elemento = item;
 	nuevo->next = top;
 	top = nuevo;
 }
 
-int Pila::pop() {
+
+std::string Pila::pop() {
 	if (estaVacia())
-		return -1;
+		return "";
 
-	int valor;
+	std::string valor;
 	Nodo* tmp;
-
 	valor = top->elemento;
 	tmp = top;
 	top = top->next;
@@ -37,8 +35,8 @@ int Pila::pop() {
 	return valor;
 }
 
-int Pila::peek() {
-	return (!estaVacia() ? top->elemento : -1);
+std::string Pila::peek() {
+	return (!estaVacia() ? top->elemento : "");
 }
 
 bool Pila::estaVacia() {
