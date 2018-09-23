@@ -11,7 +11,7 @@ Lista::~Lista() {
 	borrarLista();
 }
 
-bool Lista::insertarElemento(std::string item) {
+bool Lista::insertarElemento(char item) {
 	Nodo* nuevo;
 
 	try {
@@ -36,7 +36,7 @@ bool Lista::insertarElemento(std::string item) {
 	return true;
 }
 
-bool Lista::borrarElemento(std::string item) {
+bool Lista::borrarElemento(char item) {
 	if (listaVacia())
 		return -1;
 	Nodo* tmp;
@@ -97,7 +97,7 @@ void Lista::mostrarListaInvertida() {
 	std::cout << std::endl;
 }
 
-int Lista::buscarElemento(std::string item) {
+int Lista::buscarElemento(char item) {
 	std::size_t i = 0;
 	Nodo* tmp;
 	tmp = inicio;

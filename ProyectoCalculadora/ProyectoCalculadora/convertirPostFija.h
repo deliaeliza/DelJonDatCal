@@ -1,6 +1,7 @@
 #ifndef CONVERTIRPOSTFIJA_H
 #define CONVERTIRPOSTFIJA_H
 
+#include "Cola.h"
 #include "Lista.h"
 #include "Pila.h"
 #include "calculadora.h"
@@ -8,20 +9,21 @@
 
 class convertirPostFija {
 public:
-	convertirPostFija(std::string);
+	convertirPostFija(Lista);
 	void convertirExpresionPosfija();
-	void convertirInterFijaPostFija(Pila<char>,std::string, int, char, int);
+	void convertirInterFijaPostFija(Pila<char>,std::string, Nodo*);
+	std::string convertirString(char);
 	char signoMayor(char, char);
-	void setExpresion(std::string);
-	std::string getExpresion();
+	void setExpresion(Lista);
+	Lista getExpresion();
 
-	Lista getExpresionPostFija();
+	Cola getExpresionPostFija();
 	
 	int precedencia(char);
 	~convertirPostFija();
 private:
-	std::string expresion;
-	Lista expresionPostFija;
+	Lista expresion;
+	Cola expresionPostFija;
 };
 
 #endif // !CONVERTIRPOSTFIJA

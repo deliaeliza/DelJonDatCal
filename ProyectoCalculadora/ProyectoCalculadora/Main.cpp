@@ -4,12 +4,32 @@
 
 int main() {
 
-	std::string convertir = "454*4/965-63";
-	convertirPostFija  c = convertirPostFija(convertir);
+	Lista p;
+	p.insertarElemento('4');
+	p.insertarElemento('5');
+	p.insertarElemento('*');
+	p.insertarElemento('4');
+	p.insertarElemento('/');
+	p.insertarElemento('9');
+	p.insertarElemento('5');
+	p.insertarElemento('-');
+	p.insertarElemento('6');
+	p.insertarElemento('3');
+	/*p.insertarElemento();
+	p.insertarElemento();
+	p.insertarElemento();
+	p.insertarElemento();
+	p.insertarElemento();
+	p.insertarElemento();
+	p.insertarElemento();*/
+
+	convertirPostFija  c = convertirPostFija(p);
 
 	c.convertirExpresionPosfija();
 
-	c.getExpresionPostFija().mostrarLista();
+	while (c.getExpresionPostFija().siguiente() != "") {
+		std::cout << c.getExpresionPostFija().dequeue() << " ";
+	}
 
 	system("pause");
 	return 0;
