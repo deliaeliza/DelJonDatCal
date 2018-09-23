@@ -8,7 +8,8 @@
 class convertirPostFija {
 public:
 	convertirPostFija();
-	void convertirInterFijaPostFija();
+	void convertirExpresionPosfija();
+	void convertirInterFijaPostFija(Pila<std::string>,std::string, int, std::string);
 	std::string signoMayor(char, std::string);
 	void setExpresion(std::string);
 	std::string getExpresion();
