@@ -1,36 +1,15 @@
 #include <iostream>
 #include <string>
-#include "Pila.h"
+#include "convertirPostFija.h"
 
 int main() {
 
-	Pila<int> pilaNumeros;
+	std::string convertir = "454*4/965-63";
+	convertirPostFija  c = convertirPostFija(convertir);
 
-	pilaNumeros.push(1);
-	pilaNumeros.push(2);
-	pilaNumeros.push(3);
-	pilaNumeros.push(4);
-	pilaNumeros.push(5);
+	c.convertirExpresionPosfija();
 
-	while (!pilaNumeros.estaVacia()) {
-		std::cout <<  pilaNumeros.pop();
-	}
-
-	
-	std::cout << "\n\n\n";
-
-	Pila<std::string> pilaString;
-
-	pilaString.push("B");
-	pilaString.push("E");
-	pilaString.push("L");
-	pilaString.push("L");
-	pilaString.push("O");
-
-	while (!pilaString.estaVacia()) {
-		std::cout << pilaString.pop() + " ";
-	}
-
+	c.getExpresionPostFija().mostrarLista();
 
 	system("pause");
 	return 0;

@@ -82,15 +82,16 @@ void convertirPostFija::convertirExpresionPosfija() {
 	char signoA = '+';
 	Pila<char> pila = Pila<char>();
 	std::string temp;
-	//Calculadora.removerEspacios(expresion);
-	convertirInterFijaPostFija(pila,temp,0,signoA);
+	Calculadora::removerEspacios(expresion);
+	convertirInterFijaPostFija(pila,temp,0,signoA, 0);
 }
 
-void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string temp, int pos, char signoA) {
+void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string temp, int pos, char signoA, int cont) {
 	if (pos == expresion.size()) {
 		while (!pila.estaVacia()) {
 			std::string expresionP;
 			expresionP = expresionP + pila.pop();
+
 			expresionPostFija.insertarElemento(expresionP);
 		}
 		return;
@@ -105,46 +106,80 @@ void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string 
 			}
 			pos++;
 		}
+		
 		expresionPostFija.insertarElemento(temp);
 		temp = "";
-	}else if (expresion[pos] == '+') {
-		signoA = signoMayor(expresion[pos], signoA);
-		if (isdigit(expresion[pos + 1]) || expresion[pos + 1] == '(')
-			pila.push(signoA);
-	}
-	else if (expresion[pos] == '-') {
-		//Casos en el que seria un numero negativo Por ejemplo: -64
-		if ((pos == 0 && isdigit(expresion[pos + 1]) ||
-			expresion[pos - 1] == '*' || expresion[pos - 1] == '/')) {
-			temp.append(1, expresion[pos]);
-			for (int j = pos + 1; j < expresion.size(); j++) {
-				if (isdigit(expresion[j]))
-					temp.append(1, expresion[j]);
-				else {
-					break;
-				}
-				pos++;
-			}
-			expresionPostFija.insertarElemento(temp);
-			temp = "";
-		}else
-			signoA = signoMayor(expresion[pos], signoA);
-		if (isdigit(expresion[pos + 1]) || expresion[pos + 1] == '(')
-			pila.push(signoA);
-
-	}
-	else if (expresion[pos] == '*' || expresion[pos] == '/' || expresion[pos] == '^') {
-		pila.push(expresion[pos]);
 	}
 	else if (expresion[pos] == '(') {
+		if (expresion[pos -1] == '-') {
+			bool verdadero = false;
+			for (int i = 0; i < expresion.size();i++) {
+				if (expresion[i] != ')') {
+					if (expresion[i] == '*' || expresion[i] == '/' || expresion[i] == '^') {
+						verdadero = true;
+					}
+					else if (expresion[i] == '-' || expresion[i] == '+') {
+						verdadero = false;
+						break;
+					}
+				}
+			}
+			if (verdadero) {
+				
+			}
+
+
+		}
+
 		pila.push(expresion[pos]);
-		convertirInterFijaPostFija(pila, temp, pos++, signoA);
+		//convertirInterFijaPostFija(pila, temp, pos++, signoA);
 	}
 	else if (expresion[pos] == ')') {
+
 		//char elementos;
 		/*while (!pila.estaVacia()) {
 
 		}*/
+	}
+	else {
+		char elemento = pila.pop();
+		if (!pila.estaVacia() && precedencia(elemento) >= precedencia(expresion[pos])) {
+
+
+
+
+
+		}
+		if (expresion[pos] == '+') {
+			signoA = signoMayor(expresion[pos], signoA);
+			if (isdigit(expresion[pos + 1]) || expresion[pos + 1] == '(')
+				pila.push(signoA);
+		}
+		else if (expresion[pos] == '-') {
+			//Casos en el que seria un numero negativo Por ejemplo: -64
+			if ((pos == 0 && isdigit(expresion[pos + 1]) ||
+				expresion[pos - 1] == '*' || expresion[pos - 1] == '/')) {
+				temp.append(1, expresion[pos]);
+				for (int j = pos + 1; j < expresion.size(); j++) {
+					if (isdigit(expresion[j]))
+						temp.append(1, expresion[j]);
+					else {
+						break;
+					}
+					pos++;
+				}
+				expresionPostFija.insertarElemento(temp);
+				temp = "";
+			}
+			else
+				signoA = signoMayor(expresion[pos], signoA);
+			if (isdigit(expresion[pos + 1]) || expresion[pos + 1] == '(')
+				pila.push(signoA);
+
+		}
+		else if (expresion[pos] == '*' || expresion[pos] == '/' || expresion[pos] == '^') {
+			pila.push(expresion[pos]);
+		}
 	}
 	convertirInterFijaPostFija(pila, temp, ++pos, signoA);
 }
@@ -154,7 +189,7 @@ int convertirPostFija::precedencia(char c) {
 		return 1;
 	if (c == '+' || c == '-')
 		return 2;
-	if (c == '*' || c == '/')
+	if (c == '*' || c == '/' || c == '^')
 		return 3;
 	return -1;
 }
