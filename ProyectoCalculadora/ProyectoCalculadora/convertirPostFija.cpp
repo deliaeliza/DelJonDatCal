@@ -48,23 +48,22 @@ void convertirPostFija::convertirInterFijaPostFija() {
 	}
 }*/
 
-convertirPostFija::convertirPostFija(std::string expresion) {
+convertirPostFija::convertirPostFija(Lista expresion) {
 	this->expresion = expresion;
-	expresionPostFija =  Lista();
+	expresionPostFija =  Cola();
 }
 
-Lista convertirPostFija::getExpresionPostFija() {
+Cola convertirPostFija::getExpresionPostFija() {
 	return expresionPostFija;
 }
 
-void convertirPostFija::setExpresion(std::string nExpresion) {
+void convertirPostFija::setExpresion(Lista nExpresion) {
 	expresion = nExpresion;
 }
 
-std::string convertirPostFija::getExpresion() {
+Lista convertirPostFija::getExpresion() {
 	return expresion;
 }
-
 
 char convertirPostFija::signoMayor(char signoActual, char signoAnterior) {
 	if (signoAnterior == '+') {
@@ -78,6 +77,7 @@ char convertirPostFija::signoMayor(char signoActual, char signoAnterior) {
 	return signoAnterior;
 }
 
+/*
 void convertirPostFija::convertirExpresionPosfija() {
 	char signoA = '+';
 	Pila<char> pila = Pila<char>();
@@ -137,9 +137,9 @@ void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string 
 	else if (expresion[pos] == ')') {
 
 		//char elementos;
-		/*while (!pila.estaVacia()) {
+		while (!pila.estaVacia()) {
 
-		}*/
+		}
 	}
 	else {
 		char elemento = pila.pop();
@@ -182,7 +182,91 @@ void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string 
 		}
 	}
 	convertirInterFijaPostFija(pila, temp, ++pos, signoA);
+}*/
+
+void convertirPostFija::convertirExpresionPosfija() {
+	Pila<char> pila = Pila<char>();
+	std::string temp;
+	convertirInterFijaPostFija(pila, temp, expresion.obtenerInicio());
 }
+
+void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string temp, Nodo* actual) {
+	if (actual) { //actual != null
+		while (!pila.estaVacia()) {
+			expresionPostFija.enqueue(convertirString(pila.pop()));
+		}
+		return;
+	}
+	else if (isdigit(actual->valor)) {
+		temp.append(1, actual->valor);
+		while (actual) { // actual != null
+			if (isdigit(actual->valor))
+				temp.append(1, actual->valor);
+			else {
+				break;
+			}
+			actual = actual->next;
+		}
+		expresionPostFija.enqueue(temp);
+		temp = "";
+	}
+	else if (actual->valor == '(') {
+		pila.push(actual->valor);
+	}
+	else if (actual->valor == ')') {
+		char signo;
+		while ((signo = pila.peek()) != '(' ) {
+			pila.pop();
+			expresionPostFija.enqueue(convertirString(signo));
+		}
+		pila.pop();
+	}
+	else {
+		char elemento = ' ';
+		if (actual->valor == '-' || actual->valor == '+') {
+			if (!actual->prev) {
+				while (actual) {
+					if (!isdigit(actual->next->valor) && 
+						actual->next->valor != '(') {
+						expresionPostFija.enqueue(convertirString(actual->valor));
+					}
+					else
+						break;
+					actual = actual->next;
+				}
+			}
+			else {
+				if (actual->next->valor == '+' || actual->next->valor == '-') {
+					elemento = pila.peek();
+				}
+				else {
+					while (actual->next) {
+						if (!isdigit(actual->next->valor) &&
+							actual->next->valor != '(') {
+							expresionPostFija.enqueue(convertirString(actual->valor));
+						}
+						else
+							break;
+						actual = actual->next;
+					}
+				}
+
+			}
+		}
+		if (elemento != ' ') {
+			if (!pila.estaVacia() && precedencia(elemento) >= precedencia(actual->valor)) {
+				expresionPostFija.enqueue(convertirString(pila.pop()));
+			}
+		}
+		while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
+			expresionPostFija.enqueue(convertirString(pila.pop()));
+		}
+		
+		pila.push(actual->valor);
+	}
+	convertirInterFijaPostFija(pila, temp, actual->next);
+}
+
 
 int convertirPostFija::precedencia(char c) {
 	if (c == '(')
@@ -192,6 +276,12 @@ int convertirPostFija::precedencia(char c) {
 	if (c == '*' || c == '/' || c == '^')
 		return 3;
 	return -1;
+}
+
+std::string convertirPostFija::convertirString(char c) {
+	std::string expresion;
+	expresion = expresion + c;
+	return expresion;
 }
 
 convertirPostFija::~convertirPostFija() {
