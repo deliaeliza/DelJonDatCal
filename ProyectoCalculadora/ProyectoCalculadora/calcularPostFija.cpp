@@ -2,7 +2,7 @@
 
 CalcularPostFija::CalcularPostFija(Lista expr) {
 	exprecion = expr;
-	numeros =  Pila();
+	numeros =  Pila<double>();
 }
 double CalcularPostFija::resultado() {
 	Nodo* actual = exprecion.obtenerInicio();
@@ -10,16 +10,18 @@ double CalcularPostFija::resultado() {
 		return 0;
 	while (actual) {
 		if (!esOperador(actual->valor)) {
-			numeros.push(actual->valor);//Llamar al convertir porque la pila almazenara double
-
-		}
-		else {
-
+			numeros.push(convertir(actual->valor));
+		} else {
 			try {
-				double der = convertir(numeros.pop());//No llamar al convertir
-				realizarOperacion(convertir(numeros.pop()), der, actual->valor);//No llamar al convertir
-			}
-			catch (std::string error) {
+				double der;
+				if (!numeros.estaVacia())
+					der = numeros.pop();
+				else throw "Error matematico";
+				if (!numeros.estaVacia())
+					numeros.push(realizarOperacion(der, numeros.pop(), actual->valor));
+				else throw "Error matematico";
+				
+			} catch (std::string error) {
 				throw(error);
 			}
 		}
@@ -32,7 +34,7 @@ bool CalcularPostFija::esOperador(std::string item) {
 	return (item == "+" || item == "-" || item == "*" || item == "/" || item == "^");
 }
 
-double realizarOperacion(double izq, double der, std::string operador) {
+double CalcularPostFija::realizarOperacion(double der, double izq, std::string operador) {
 	if (operador == "+")
 		return izq + der;
 	if (operador == "-")
@@ -45,9 +47,11 @@ double realizarOperacion(double izq, double der, std::string operador) {
 		return izq / der;
 	throw "Error matematico";
 }
-double convertir(std::string numero) {
-	double d;
+double CalcularPostFija::convertir(std::string numero) {
 	try {
-		std::istringstream(numero) >> d;
+		return std::stod(numero);
+	} catch (const std::invalid_argument& ia) {
+		throw "Error matematico";
 	}
+		
 }

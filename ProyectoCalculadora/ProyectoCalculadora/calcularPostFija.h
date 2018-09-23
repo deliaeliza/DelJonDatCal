@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstdio>
 #include <cmath>
 #include "pila.h"
 #include "lista.h"
