@@ -8,13 +8,13 @@ public:
 	Stack();
 	~Stack();
 
-	void push(const int);
-	int pop();
+	void push(const char);
+	char pop();
 	int peek();
 
 private:
 	struct Nodo {
-		int elemento;
+		char elemento;
 		struct Nodo* next;
 	};
 	struct Nodo* top;

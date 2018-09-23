@@ -8,7 +8,7 @@ Stack::Stack() {
 Stack::~Stack() {
 }
 
-void Stack::push(const int item) {
+void Stack::push(const char item) {
 	Nodo* nuevo;
 
 	try
@@ -25,11 +25,11 @@ void Stack::push(const int item) {
 	top = nuevo;
 }
 
-int Stack::pop() {
+char Stack::pop() {
 	if (estaVacia())
 		return -1;
 
-	int valor;
+	char valor;
 	Nodo* tmp;
 
 	valor = top->elemento;
