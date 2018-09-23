@@ -10,27 +10,22 @@ bool Calculadora::esValida(std::string expr) {
 }
 
 unsigned int Calculadora::esValida(unsigned int pos, std::string expr) {
-	bool operCorrecto = false;
-	bool parCorrecto = false;
-	bool hayNumeros = false;
+	bool hayNumero = false;
+	char actual;
 	while (pos < expr.size()) {
-			if (pos == expr.size() - 1 && (esOperador(expr[pos]) || expr[pos] == '('))
-				return false;
-			if (pos != expr.size() - 1) {
-				if ((esOperador(expr[pos])) &&
-					(expr[pos + 1] == '^' || expr[pos + 1] == '*' || expr[pos + 1] == '/' || expr[pos + 1] == ')'))
-					return false;
-			}
-		if (expr[pos] == '(') {
-			++pos;
-			while (expr[pos] != ')') {
-				if (expr[pos] == '(')
-					pos = esValida(++pos, expr);
-
-
-				if (hayNumeros && parCorrecto)
-					return true;
-			}
+		actual = expr[pos];
+		if (actual >= '0' && actual <= '9')
+			hayNumero = true;
+		if (!esOperador(actual) && !isdigit(actual) && actual != ')' && actual != '(')
+			return false;
+		if (pos == expr.size() - 1 && (esOperador(actual) || actual == '('))
+			return false;
+		if ((pos != expr.size()-1 && esOperador(actual)) &&
+			(expr[pos + 1] == '^' || expr[pos + 1] == '*' || expr[pos + 1] == '/' || expr[pos + 1] == ')'))
+			return false;
+		if (expr[pos] == '(') {//Si la pila esta vacia, hayNumero para a false;
+ 			
+				
 		}
 		
 	}
