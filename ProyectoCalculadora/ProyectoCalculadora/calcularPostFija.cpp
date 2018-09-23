@@ -4,6 +4,9 @@ CalcularPostFija::CalcularPostFija(Lista expr) {
 	exprecion = expr;
 	numeros =  Pila<double>();
 }
+CalcularPostFija::~CalcularPostFija() {
+
+}
 double CalcularPostFija::resultado() {
 	Nodo* actual = exprecion.obtenerInicio();
 	if (!actual)

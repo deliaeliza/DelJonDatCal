@@ -12,10 +12,11 @@
 class CalcularPostFija {
 public:
 	CalcularPostFija(Lista);
+	~CalcularPostFija();
 	double resultado();
-
-private: 
 	bool esOperador(std::string);
+private: 
+	
 	double realizarOperacion(double, double, std::string);
 	double convertir(std::string);
 	Pila<double> numeros;
