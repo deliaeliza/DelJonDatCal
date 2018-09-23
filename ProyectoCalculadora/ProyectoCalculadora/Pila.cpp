@@ -1,22 +1,19 @@
 #include "Pila.h"
 
-Stack::Stack() {
+Pila::Pila() {
 	top = nullptr;
 }
 
 
-Stack::~Stack() {
+Pila::~Pila() {
 }
 
-void Stack::push(const int item) {
+void Pila::push(const int item) {
 	Nodo* nuevo;
 
-	try
-	{
+	try {
 		nuevo = new Nodo;
-	}
-	catch (std::bad_alloc exception)
-	{
+	} catch (std::bad_alloc exception) {
 		return;
 	}
 
@@ -25,7 +22,7 @@ void Stack::push(const int item) {
 	top = nuevo;
 }
 
-int Stack::pop() {
+int Pila::pop() {
 	if (estaVacia())
 		return -1;
 
@@ -40,10 +37,10 @@ int Stack::pop() {
 	return valor;
 }
 
-int Stack::peek() {
+int Pila::peek() {
 	return (!estaVacia() ? top->elemento : -1);
 }
 
-bool Stack::estaVacia() {
-	return top == nullptr;
+bool Pila::estaVacia() {
+	return (top == nullptr);
 }

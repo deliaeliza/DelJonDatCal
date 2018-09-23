@@ -3,10 +3,10 @@
 
 #include <iostream>
 
-class Stack {
+class Pila {
 public:
-	Stack();
-	~Stack();
+	Pila();
+	~Pila();
 
 	void push(const int);
 	int pop();

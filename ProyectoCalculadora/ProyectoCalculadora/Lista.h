@@ -5,24 +5,22 @@
 #define LISTA_H
 
 #include <iostream>
+#include <string>
 
-// Contiene las operaciones de la Lista Enlazada
-// Note que el puntero al primer nodo de la lista
-// se mantiene oculto al usuario (privado)
 class Lista {
 public:
 	Lista();
 	~Lista();
-	int insertarElemento(int item);
-	int borrarElemento(int item);
-	int buscarElemento(int item);
+	bool insertarElemento(std::string item);
+	bool borrarElemento(std::string item);
+	int buscarElemento(std::string item);
 	void mostrarLista();
 	void mostrarListaInvertida();
 	void borrarLista();
 	bool listaVacia();
 private:
 	struct Nodo {
-		int valor;
+		std::string valor;
 		Nodo* next;
 		Nodo* prev;
 	};
