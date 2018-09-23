@@ -15,9 +15,19 @@ void convertirPostFija::convertirInterFijaPostFija() {
 				pila.push(signoA);
 		}
 		else if (expresion[i] == '-') {
-			//Casos en el que seria un numero negativo Por ejemplo: -6
+			//Casos en el que seria un numero negativo Por ejemplo: -64
 			if ((i == 0 && isdigit(expresion[i + 1]) || 
 				expresion[i - 1] == '*' || expresion[i -1] == '/')) {
+				temp.append(1, expresion[i]);
+				for (int j = i + 1; j < expresion.size();j++) {
+					if (isdigit(expresion[j]))
+						temp.append(1, expresion[j]);
+					else
+						break;
+				}
+				pila.push(temp);
+			}
+			else if (expresion[i + 1] == '(') {
 
 			}
 
