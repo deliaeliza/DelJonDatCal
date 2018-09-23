@@ -5,19 +5,18 @@
 #define COLA_H
 
 #include <iostream>
-
-#define MAX 20
+#include <string>
 
 class Cola {
 public:
 	Cola();
 	~Cola();
-	void enqueue(const int);
-	int dequeue();
-	int siguiente();
+	void enqueue(const std::string);
+	std::string dequeue();
+	std::string siguiente();
 private:
 	struct Nodo {
-		int elemento;
+		std::string elemento;
 		struct Nodo* next;
 	};
 	Nodo * head; //salida

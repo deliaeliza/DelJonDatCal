@@ -1,14 +1,13 @@
 #include "cola.h"
 
 Cola::Cola() {
-	head = nullptr;
-	tail = nullptr;
+	head = tail = nullptr;
 }
 
 Cola::~Cola() {
 }
 
-void Cola::enqueue(const int item) {
+void Cola::enqueue(const std::string item) {
 	Nodo* nuevo;
 	try {
 		nuevo = new Nodo;
@@ -26,11 +25,11 @@ void Cola::enqueue(const int item) {
 	}
 }
 
-int Cola::dequeue() {
+std::string Cola::dequeue() {
 	if (estaVacia())
-		return -1;
+		return "";
 	Nodo* tmp;
-	int valor;
+	std::string valor;
 	tmp = head;
 	valor = head->elemento;
 	head = head->next;
@@ -41,9 +40,9 @@ int Cola::dequeue() {
 	return valor;
 }
 
-int Cola::siguiente() {
+std::string Cola::siguiente() {
 	if (estaVacia())
-		return -1;
+		return "";
 	return head->elemento;
 }
 
