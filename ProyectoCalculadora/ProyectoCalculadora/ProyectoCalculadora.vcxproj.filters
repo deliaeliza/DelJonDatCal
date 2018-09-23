@@ -30,9 +30,6 @@
     <ClCompile Include="lista.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
-    <ClCompile Include="pila.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
     <ClCompile Include="calcularPostFija.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>

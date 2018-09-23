@@ -76,7 +76,10 @@ double CalcularPostFija::resultado(Cola expr) {
 					actual = expr.dequeue();
 				}	
 			}
-			numeros.push(resultadoParentesis);//Vericar si hay que ponerle signo.
+			if (signo == "-")
+				resultadoParentesis *= -1;
+			numeros.push(resultadoParentesis);
+			signo = "";
 		}
 		else { //Es numero. No se verifica ")", se supone que es sintacticamente correcta
 			numeros.push(convertir(signo + actual));
