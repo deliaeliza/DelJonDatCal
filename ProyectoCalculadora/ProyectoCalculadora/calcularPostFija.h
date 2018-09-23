@@ -3,15 +3,22 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <cstdio>
+#include <cmath>
 #include "pila.h"
 #include "lista.h"
 
 class CalcularPostFija {
 public:
 	CalcularPostFija(Lista);
+	~CalcularPostFija();
 	double resultado();
-
+	bool esOperador(std::string);
 private: 
+	
+	double realizarOperacion(double, double, std::string);
+	double convertir(std::string);
 	Pila<double> numeros;
 	Lista exprecion;
 };

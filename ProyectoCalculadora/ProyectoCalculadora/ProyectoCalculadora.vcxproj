@@ -115,20 +115,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Calculadora.cpp" />
+    <ClCompile Include="calculadora.cpp" />
     <ClCompile Include="calcularPostFija.cpp" />
-    <ClCompile Include="Cola.cpp" />
+    <ClCompile Include="cola.cpp" />
     <ClCompile Include="convertirPostFija.cpp" />
-    <ClCompile Include="Lista.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="lista.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pila.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Calculadora.h" />
+    <ClInclude Include="calculadora.h" />
     <ClInclude Include="calcularPostFija.h" />
-    <ClInclude Include="Cola.h" />
+    <ClInclude Include="cola.h" />
     <ClInclude Include="convertirPostFija.h" />
-    <ClInclude Include="Lista.h" />
-    <ClInclude Include="Pila.h" />
+    <ClInclude Include="lista.h" />
+    <ClInclude Include="pila.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
