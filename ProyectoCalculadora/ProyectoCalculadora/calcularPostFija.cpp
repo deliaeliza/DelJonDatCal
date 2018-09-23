@@ -8,5 +8,4 @@ double CalcularPostFija::resultado() {
 	Nodo* actual = exprecion.obtenerInicio();
 	if (!actual)
 		return 0;
-
 }
