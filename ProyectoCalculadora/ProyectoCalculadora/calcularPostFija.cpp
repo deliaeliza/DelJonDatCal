@@ -1,6 +1,6 @@
 #include "calcularPostFija.h"
 
-CalcularPostFija::CalcularPostFija(Lista exprecion) {
+CalcularPostFija::CalcularPostFija(Cola exprecion) {
 	this->exprecion = exprecion;
 	numeros =  Pila<double>();
 }
@@ -8,11 +8,11 @@ CalcularPostFija::~CalcularPostFija() {
 
 }
 
-void CalcularPostFija::setExprecion(Lista exprecion) {
+void CalcularPostFija::setExprecion(Cola exprecion) {
 	this->exprecion = exprecion;
 }
 
-double CalcularPostFija::resultado() {
+/*double CalcularPostFija::resultado() {
 	Nodo* actual = exprecion.obtenerInicio();
 	if (!actual)
 		return 0;
@@ -35,8 +35,63 @@ double CalcularPostFija::resultado() {
 		}
 		actual = actual->next;
 	}
+}*/
+
+double CalcularPostFija::resultado(Cola expr) {
+	std::string signo = "";
+	while (expr.siguiente != "") {
+		std::string actual = expr.dequeue();
+		
+		if (esOperador(actual)) {//Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
+			if (!numeros.estaVacia()) {
+				double num = numeros.pop();
+				if (!numeros.estaVacia()) {
+					numeros.push(realizarOperacion(num, numeros.pop(), actual));
+					//signo = "";
+				} else{
+					numeros.push(num); //Devuelve el numero porque no hay sufiecientes para realizar una operacion
+					signo = ((signo == "") ? actual : unificarSignos(actual, signo));
+				}
+			} else
+				signo = ((signo == "") ? actual : unificarSignos(actual, signo));
+		} else  if (actual == "(") {
+			Cola aux = Cola();
+			unsigned int contador = 1;
+			actual = expr.dequeue();
+			double resultadoParentesis = 0;
+			while (actual != ")" && contador != 0) {
+				if (actual == "(") {
+					contador++;
+				}
+				if (actual == ")") {
+					contador--;
+					if (contador == 0) {
+						resultadoParentesis = resultado(aux);
+					}
+				} else {
+					aux.enqueue(actual);
+					actual = expr.dequeue();
+				}	
+			}
+			numeros.push(resultadoParentesis);//Vericar si hay que ponerle signo.
+		}
+		else { //Es numero. No se verifica ")", se supone que es sintacticamente correcta
+			//Verificar si hay que ponerle signo.
+
+		}
+	}
 }
 
+std::string CalcularPostFija::unificarSignos(std::string signoActual, std::string signoAnterior) {
+	if (signoAnterior == "+") {
+		if (signoActual == "-")
+			signoAnterior = "-";
+	} else if (signoAnterior == "-") {
+		if (signoActual == "-")
+			signoAnterior = "+";
+	}
+	return signoAnterior;
+}
 
 bool CalcularPostFija::esOperador(std::string item) {
 	return (item == "+" || item == "-" || item == "*" || item == "/" || item == "^");

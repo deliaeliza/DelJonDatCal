@@ -17,7 +17,7 @@ bool Calculadora::esValida(unsigned int pos, std::string expr) {
 			hayNumero = true;
 		if (!esOperador(expr[pos]) && !isdigit(expr[pos]) && expr[pos] != ')' && expr[pos] != '(')
 			return false;
-		if (pos == expr.size() - 1 && (esOperador(expr[pos]) || expr[pos] == '('))
+		if (pos == expr.size()-1 && (esOperador(expr[pos]) || expr[pos] == '('))
 			return false;
 		if ((pos != expr.size()-1 && esOperador(expr[pos])) &&
 			(expr[pos + 1] == '^' || expr[pos + 1] == '*' || expr[pos + 1] == '/' || expr[pos + 1] == ')'))
