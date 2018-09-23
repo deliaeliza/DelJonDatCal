@@ -14,7 +14,7 @@ public:
 	bool esValida(std::string);
 	static bool esOperador(char);
 private: 
-	unsigned int esValida(unsigned int, std::string);
+	bool esValida(unsigned int, std::string);
 		
 };
 

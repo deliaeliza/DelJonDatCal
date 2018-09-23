@@ -9,7 +9,7 @@ bool Calculadora::esValida(std::string expr) {
 	return esValida(0, expr);
 }
 
-unsigned int Calculadora::esValida(unsigned int pos, std::string expr) {
+bool Calculadora::esValida(unsigned int pos, std::string expr) {
 	bool hayNumero = false;
 	char actual;
 	Pila<char> parentesis = Pila<char>();
@@ -24,7 +24,7 @@ unsigned int Calculadora::esValida(unsigned int pos, std::string expr) {
 		if ((pos != expr.size()-1 && esOperador(actual)) &&
 			(expr[pos + 1] == '^' || expr[pos + 1] == '*' || expr[pos + 1] == '/' || expr[pos + 1] == ')'))
 			return false;
-		if (actual == '(') {//Si la pila esta vacia, hayNumero para a false;
+		if (actual == '(') {
 			parentesis.push(actual);
 		}
 		if (actual == ')') {
