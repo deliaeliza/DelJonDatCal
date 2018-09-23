@@ -12,7 +12,7 @@ public:
 	double resultado();
 
 private: 
-	Pila *numeros;
+	Pila numeros;
 	Lista exprecion;
 };
 

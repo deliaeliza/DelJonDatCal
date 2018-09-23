@@ -2,7 +2,7 @@
 
 CalcularPostFija::CalcularPostFija(Lista expr) {
 	exprecion = expr;
-	//numeros =  Pila();
+	numeros =  Pila();
 }
 double CalcularPostFija::resultado() {
 	Nodo* actual = exprecion.obtenerInicio();
