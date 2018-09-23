@@ -1,12 +1,17 @@
 #include "calcularPostFija.h"
 
-CalcularPostFija::CalcularPostFija(Lista expr) {
-	exprecion = expr;
+CalcularPostFija::CalcularPostFija(Lista exprecion) {
+	this->exprecion = exprecion;
 	numeros =  Pila<double>();
 }
 CalcularPostFija::~CalcularPostFija() {
 
 }
+
+void CalcularPostFija::setExprecion(Lista exprecion) {
+	this->exprecion = exprecion;
+}
+
 double CalcularPostFija::resultado() {
 	Nodo* actual = exprecion.obtenerInicio();
 	if (!actual)

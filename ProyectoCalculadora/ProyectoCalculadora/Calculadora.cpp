@@ -11,23 +11,21 @@ bool Calculadora::esValida(std::string expr) {
 
 bool Calculadora::esValida(unsigned int pos, std::string expr) {
 	bool hayNumero = false;
-	char actual;
 	Pila<char> parentesis = Pila<char>();
 	while (pos < expr.size()) {
-		actual = expr[pos];
-		if (actual >= '0' && actual <= '9')
+		if (expr[pos] >= '0' && expr[pos] <= '9')
 			hayNumero = true;
-		if (!esOperador(actual) && !isdigit(actual) && actual != ')' && actual != '(')
+		if (!esOperador(expr[pos]) && !isdigit(expr[pos]) && expr[pos] != ')' && expr[pos] != '(')
 			return false;
-		if (pos == expr.size() - 1 && (esOperador(actual) || actual == '('))
+		if (pos == expr.size() - 1 && (esOperador(expr[pos]) || expr[pos] == '('))
 			return false;
-		if ((pos != expr.size()-1 && esOperador(actual)) &&
+		if ((pos != expr.size()-1 && esOperador(expr[pos])) &&
 			(expr[pos + 1] == '^' || expr[pos + 1] == '*' || expr[pos + 1] == '/' || expr[pos + 1] == ')'))
 			return false;
-		if (actual == '(') {
-			parentesis.push(actual);
+		if (expr[pos] == '(') {
+			parentesis.push(expr[pos]);
 		}
-		if (actual == ')') {
+		if (expr[pos] == ')') {
 			if (parentesis.estaVacia() || !hayNumero)
 				return false;
 			parentesis.pop();

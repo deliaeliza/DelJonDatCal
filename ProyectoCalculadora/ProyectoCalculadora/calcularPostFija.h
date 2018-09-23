@@ -13,6 +13,7 @@ class CalcularPostFija {
 public:
 	CalcularPostFija(Lista);
 	~CalcularPostFija();
+	void setExprecion(Lista);
 	double resultado();
 private: 
 	bool esOperador(std::string);
