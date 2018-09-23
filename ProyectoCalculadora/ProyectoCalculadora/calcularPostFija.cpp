@@ -1,13 +1,18 @@
 #include "calcularPostFija.h"
 
-CalcularPostFija::CalcularPostFija(Lista expr) {
-	exprecion = expr;
+CalcularPostFija::CalcularPostFija(Cola exprecion) {
+	this->exprecion = exprecion;
 	numeros =  Pila<double>();
 }
 CalcularPostFija::~CalcularPostFija() {
 
 }
-double CalcularPostFija::resultado() {
+
+void CalcularPostFija::setExprecion(Cola exprecion) {
+	this->exprecion = exprecion;
+}
+
+/*double CalcularPostFija::resultado() {
 	Nodo* actual = exprecion.obtenerInicio();
 	if (!actual)
 		return 0;
@@ -30,8 +35,70 @@ double CalcularPostFija::resultado() {
 		}
 		actual = actual->next;
 	}
+}*/
+
+double CalcularPostFija::resultado(Cola expr) {
+	std::string signo = "";
+	while (expr.siguiente != "") {
+		std::string actual = expr.dequeue();
+		if (esOperador(actual)) {//Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
+			if (!numeros.estaVacia()) {
+				double num = numeros.pop();
+				if (!numeros.estaVacia()) {
+					try {
+						numeros.push(realizarOperacion(num, numeros.pop(), actual));
+						//signo = "";
+					} catch (std::string error) {
+						throw error;
+					}
+				} else{
+					numeros.push(num); //Devuelve el numero porque no hay sufiecientes para realizar una operacion
+					signo = ((signo == "") ? actual : unificarSignos(actual, signo));
+				}
+			} else
+				signo = ((signo == "") ? actual : unificarSignos(actual, signo));
+		} else  if (actual == "(") {
+			Cola aux = Cola();
+			unsigned int contador = 1;
+			actual = expr.dequeue();
+			double resultadoParentesis = 0;
+			while (actual != ")" && contador != 0) {
+				if (actual == "(") {
+					contador++;
+				}
+				if (actual == ")") {
+					contador--;
+					if (contador == 0) {
+						resultadoParentesis = resultado(aux);
+					}
+				} else {
+					aux.enqueue(actual);
+					actual = expr.dequeue();
+				}	
+			}
+			if (signo == "-")
+				resultadoParentesis *= -1;
+			numeros.push(resultadoParentesis);
+			signo = "";
+		}
+		else { //Es numero. No se verifica ")", se supone que es sintacticamente correcta
+			numeros.push(convertir(signo + actual));
+			signo = "";
+		}
+	}
+	return numeros.pop();
 }
 
+std::string CalcularPostFija::unificarSignos(std::string signoActual, std::string signoAnterior) {
+	if (signoAnterior == "+") {
+		if (signoActual == "-")
+			signoAnterior = "-";
+	} else if (signoAnterior == "-") {
+		if (signoActual == "-")
+			signoAnterior = "+";
+	}
+	return signoAnterior;
+}
 
 bool CalcularPostFija::esOperador(std::string item) {
 	return (item == "+" || item == "-" || item == "*" || item == "/" || item == "^");
@@ -51,10 +118,10 @@ double CalcularPostFija::realizarOperacion(double der, double izq, std::string o
 	throw "Error matematico";
 }
 double CalcularPostFija::convertir(std::string numero) {
-	try {
+	//try {
 		return std::stod(numero);
-	} catch (const std::invalid_argument& ia) {
+	/*} catch (const std::invalid_argument& ia) {
 		throw "Error matematico";
-	}
+	}*/
 		
 }

@@ -7,19 +7,22 @@
 #include <cstdio>
 #include <cmath>
 #include "pila.h"
-#include "lista.h"
+#include "cola.h"
 
 class CalcularPostFija {
 public:
-	CalcularPostFija(Lista);
+	CalcularPostFija(Cola);
 	~CalcularPostFija();
+	void setExprecion(Cola);
 	double resultado();
 private: 
+	double resultado(Cola);
+	std::string unificarSignos(std::string signoActual, std::string signoAnterior);
 	bool esOperador(std::string);
 	double realizarOperacion(double, double, std::string);
 	double convertir(std::string);
 	Pila<double> numeros;
-	Lista exprecion;
+	Cola exprecion;
 };
 
 #endif // !CALCULARPOSTFIJA_H

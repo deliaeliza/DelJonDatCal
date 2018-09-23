@@ -121,7 +121,6 @@
     <ClCompile Include="convertirPostFija.cpp" />
     <ClCompile Include="lista.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="pila.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculadora.h" />
