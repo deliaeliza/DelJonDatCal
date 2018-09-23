@@ -37,6 +37,7 @@ int Cola::dequeue() {
 	if (head == nullptr)
 		tail = nullptr;
 	delete tmp;
+	tmp = nullptr;
 	return valor;
 }
 
