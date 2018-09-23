@@ -7,6 +7,12 @@
 #include <iostream>
 #include <string>
 
+struct Nodo {
+	std::string valor;
+	Nodo* next;
+	Nodo* prev;
+};
+
 class Lista {
 public:
 	Lista();
@@ -14,16 +20,12 @@ public:
 	bool insertarElemento(std::string item);
 	bool borrarElemento(std::string item);
 	int buscarElemento(std::string item);
+	Nodo* obtenerInicio();
 	void mostrarLista();
 	void mostrarListaInvertida();
 	void borrarLista();
 	bool listaVacia();
 private:
-	struct Nodo {
-		std::string valor;
-		Nodo* next;
-		Nodo* prev;
-	};
 	Nodo * inicio;
 };
 

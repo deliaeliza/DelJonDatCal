@@ -63,7 +63,6 @@ bool Lista::borrarElemento(std::string item) {
 	return false;
 }
 
-//Recorre la lista enlazada mostrando el contenido de cada uno de los elementos
 void Lista::mostrarLista() {
 	if (listaVacia()) {
 		std::cout << std::endl << std::endl << "La lista no tiene elementos..." << std::endl;
@@ -99,7 +98,7 @@ void Lista::mostrarListaInvertida() {
 }
 
 int Lista::buscarElemento(std::string item) {
-	int i = 1;
+	std::size_t i = 0;
 	Nodo* tmp;
 	tmp = inicio;
 	while (tmp) {
@@ -110,6 +109,10 @@ int Lista::buscarElemento(std::string item) {
 		tmp = tmp->next;
 	}
 	return -1;
+}
+
+Nodo* Lista::obtenerInicio() {
+	return inicio;
 }
 
 void Lista::borrarLista() {

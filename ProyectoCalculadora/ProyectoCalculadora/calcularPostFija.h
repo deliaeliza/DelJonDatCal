@@ -4,14 +4,15 @@
 #include <iostream>
 #include <string>
 #include "pila.h"
+#include "lista.h"
 
 class CalcularPostFija {
 public:
-	CalcularPostFija();
-
+	CalcularPostFija(Lista);
+	double resultado();
 
 private: 
-	Pila numeros;
+	Pila *numeros;
 	Lista exprecion;
 };
 
