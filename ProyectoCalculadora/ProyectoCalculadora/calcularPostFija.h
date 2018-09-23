@@ -17,7 +17,7 @@ private:
 	bool esOperador(std::string);
 	double realizarOperacion(double, double, std::string);
 	double convertir(std::string);
-	Pila numeros;
+	Pila<double> numeros;
 	Lista exprecion;
 };
 
