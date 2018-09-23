@@ -3,16 +3,21 @@
 
 #include "Lista.h"
 #include "Pila.h"
+#include "calculadora.h"
 #include <iostream>
 
 class convertirPostFija {
 public:
-	convertirPostFija();
+	convertirPostFija(std::string);
 	void convertirExpresionPosfija();
-	void convertirInterFijaPostFija(Pila<std::string>,std::string, int, std::string);
-	std::string signoMayor(char, std::string);
+	void convertirInterFijaPostFija(Pila<char>,std::string, int, char, int);
+	char signoMayor(char, char);
 	void setExpresion(std::string);
 	std::string getExpresion();
+
+	Lista getExpresionPostFija();
+	
+	int precedencia(char);
 	~convertirPostFija();
 private:
 	std::string expresion;
