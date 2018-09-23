@@ -3,6 +3,7 @@
 
 #include "Lista.h"
 #include "Pila.h"
+#include "calculadora.h"
 #include <iostream>
 
 class convertirPostFija {
@@ -15,7 +16,7 @@ public:
 	std::string getExpresion();
 
 	Lista getExpresionPostFija();
-	void removerEspacios(std::string&);
+	
 	int precedencia(char);
 	~convertirPostFija();
 private:

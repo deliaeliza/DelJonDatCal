@@ -39,3 +39,11 @@ unsigned int Calculadora::esValida(unsigned int pos, std::string expr) {
 bool Calculadora::esOperador(char item) {
 	return (item == '+' || item == '-' || item == '*' || item == '/' || item == '^');
 }
+
+void Calculadora::removerEspacios(std::string& exp) {
+	for (std::string::size_type i = 0; i < exp.size(); ++i)
+		if (isspace(exp[i])) {
+			exp.erase(i, 1);
+			--i;
+		}
+}

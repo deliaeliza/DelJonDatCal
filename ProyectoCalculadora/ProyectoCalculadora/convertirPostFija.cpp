@@ -82,7 +82,7 @@ void convertirPostFija::convertirExpresionPosfija() {
 	char signoA = '+';
 	Pila<char> pila = Pila<char>();
 	std::string temp;
-	removerEspacios(expresion);
+	//Calculadora.removerEspacios(expresion);
 	convertirInterFijaPostFija(pila,temp,0,signoA);
 }
 
@@ -157,14 +157,6 @@ int convertirPostFija::precedencia(char c) {
 	if (c == '*' || c == '/')
 		return 3;
 	return -1;
-}
-
-void convertirPostFija::removerEspacios(std::string& exp) {
-	for (std::string::size_type i = 0; i < exp.size(); ++i)
-		if (isspace(exp[i])) {
-			exp.erase(i, 1);
-			--i;
-		}
 }
 
 convertirPostFija::~convertirPostFija() {
