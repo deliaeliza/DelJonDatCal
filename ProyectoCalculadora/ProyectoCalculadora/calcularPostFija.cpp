@@ -41,13 +41,16 @@ double CalcularPostFija::resultado(Cola expr) {
 	std::string signo = "";
 	while (expr.siguiente != "") {
 		std::string actual = expr.dequeue();
-		
 		if (esOperador(actual)) {//Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
 			if (!numeros.estaVacia()) {
 				double num = numeros.pop();
 				if (!numeros.estaVacia()) {
-					numeros.push(realizarOperacion(num, numeros.pop(), actual));
-					//signo = "";
+					try {
+						numeros.push(realizarOperacion(num, numeros.pop(), actual));
+						//signo = "";
+					} catch (std::string error) {
+						throw error;
+					}
 				} else{
 					numeros.push(num); //Devuelve el numero porque no hay sufiecientes para realizar una operacion
 					signo = ((signo == "") ? actual : unificarSignos(actual, signo));
@@ -76,10 +79,11 @@ double CalcularPostFija::resultado(Cola expr) {
 			numeros.push(resultadoParentesis);//Vericar si hay que ponerle signo.
 		}
 		else { //Es numero. No se verifica ")", se supone que es sintacticamente correcta
-			//Verificar si hay que ponerle signo.
-
+			numeros.push(convertir(signo + actual));
+			signo = "";
 		}
 	}
+	return numeros.pop();
 }
 
 std::string CalcularPostFija::unificarSignos(std::string signoActual, std::string signoAnterior) {
@@ -111,10 +115,10 @@ double CalcularPostFija::realizarOperacion(double der, double izq, std::string o
 	throw "Error matematico";
 }
 double CalcularPostFija::convertir(std::string numero) {
-	try {
+	//try {
 		return std::stod(numero);
-	} catch (const std::invalid_argument& ia) {
+	/*} catch (const std::invalid_argument& ia) {
 		throw "Error matematico";
-	}
+	}*/
 		
 }
