@@ -1,6 +1,6 @@
 #include "calcularPostFija.h"
 
-CalcularPostFija::CalcularPostFija(Cola exprecion) {
+CalcularPostFija::CalcularPostFija(Cola* exprecion) {
 	this->exprecion = exprecion;
 	numeros =  Pila<double>();
 }
@@ -8,8 +8,11 @@ CalcularPostFija::~CalcularPostFija() {
 
 }
 
-void CalcularPostFija::setExprecion(Cola exprecion) {
+void CalcularPostFija::setExprecion(Cola* exprecion) {
 	this->exprecion = exprecion;
+}
+double CalcularPostFija::resultado() {
+	return resultado(exprecion);
 }
 
 /*double CalcularPostFija::resultado() {
@@ -37,10 +40,10 @@ void CalcularPostFija::setExprecion(Cola exprecion) {
 	}
 }*/
 
-double CalcularPostFija::resultado(Cola expr) {
+double CalcularPostFija::resultado(Cola* expr) {
 	std::string signo = "";
-	while (expr.siguiente() != "") {
-		std::string actual = expr.dequeue();
+	while (expr->siguiente() != "") {
+		std::string actual = expr->dequeue();
 		if (esOperador(actual)) {//Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
 			if (!numeros.estaVacia()) {
 				double num = numeros.pop();
@@ -58,11 +61,11 @@ double CalcularPostFija::resultado(Cola expr) {
 			} else
 				signo = ((signo == "") ? actual : unificarSignos(actual, signo));
 		} else  if (actual == "(") {
-			Cola aux = Cola();
+			Cola *aux = new Cola();
 			unsigned int contador = 1;
-			actual = expr.dequeue();
+			actual = expr->dequeue();
 			double resultadoParentesis = 0;
-			while (actual != ")" && contador != 0) {
+			while (contador != 0) {
 				if (actual == "(") {
 					contador++;
 				}
@@ -72,10 +75,12 @@ double CalcularPostFija::resultado(Cola expr) {
 						resultadoParentesis = resultado(aux);
 					}
 				} else {
-					aux.enqueue(actual);
-					actual = expr.dequeue();
+					aux->enqueue(actual);
+					actual = expr->dequeue();
 				}	
 			}
+
+
 			if (signo == "-")
 				resultadoParentesis *= -1;
 			numeros.push(resultadoParentesis);

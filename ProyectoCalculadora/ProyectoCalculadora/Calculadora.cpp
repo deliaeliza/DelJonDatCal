@@ -4,7 +4,7 @@ Calculadora::Calculadora() {
 }
 Calculadora::~Calculadora() {
 }
-
+/*
 #include "calcularPostFija.h"
 
 CalcularPostFija::CalcularPostFija(Cola exprecion) {
@@ -17,7 +17,7 @@ CalcularPostFija::~CalcularPostFija() {
 
 void CalcularPostFija::setExprecion(Cola exprecion) {
 	this->exprecion = exprecion;
-}
+}*/
 
 /*double CalcularPostFija::resultado() {
 Nodo* actual = exprecion.obtenerInicio();
@@ -43,7 +43,7 @@ throw(error);
 actual = actual->next;
 }
 }*/
-
+/*
 double CalcularPostFija::resultado(Cola expr) {
 	std::string signo = "";
 	while (expr.siguiente() != "") {
@@ -137,4 +137,4 @@ double CalcularPostFija::convertir(std::string numero) {
 	throw "Error matematico";
 	}*/
 
-}
+//}

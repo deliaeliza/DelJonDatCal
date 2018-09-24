@@ -11,18 +11,18 @@ class Calculadora {
 public:
 	Calculadora();
 	~Calculadora();
-	void setExprecion(Cola);
-	double resultado();
+	//void setExprecion(Cola);
+	//double resultado();
 
 private: 
-	double resultado(Cola);
-	std::string unificarSignos(std::string signoActual, std::string signoAnterior);
-	bool esOperador(std::string);
-	double realizarOperacion(double, double, std::string);
-	double convertir(std::string);
+	//double resultado(Cola);
+	//std::string unificarSignos(std::string signoActual, std::string signoAnterior);
+	//bool esOperador(std::string);
+	//double realizarOperacion(double, double, std::string);
+	//double convertir(std::string);
 
-	Pila<double> numeros;
-	Cola exprecion;
+	//Pila<double> numeros;
+	//Cola exprecion;
 };
 
 #endif // !CALCULADORA

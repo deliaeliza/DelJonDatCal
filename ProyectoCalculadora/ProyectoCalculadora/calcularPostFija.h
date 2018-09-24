@@ -11,19 +11,19 @@
 
 class CalcularPostFija {
 public:
-	CalcularPostFija(Cola);
+	CalcularPostFija(Cola*);
 	~CalcularPostFija();
-	void setExprecion(Cola);
+	void setExprecion(Cola*);
 	double resultado();
 private: 
-	double resultado(Cola);
+	double resultado(Cola*);
 	std::string unificarSignos(std::string signoActual, std::string signoAnterior);
 	bool esOperador(std::string);
 	double realizarOperacion(double, double, std::string);
 	double convertir(std::string);
 
 	Pila<double> numeros;
-	Cola exprecion;
+	Cola* exprecion;
 };
 
 #endif // !CALCULARPOSTFIJA_H
