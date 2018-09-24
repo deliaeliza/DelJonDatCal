@@ -1,5 +1,4 @@
 #include "control.h"
-
 bool Control::esValida(std::string expr) {//quitar
 	return esValida(0, expr);
 }

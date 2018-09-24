@@ -11,12 +11,18 @@ class Calculadora {
 public:
 	Calculadora();
 	~Calculadora();
-	bool esValida(std::string);
-	static bool esOperador(char);
-	static void removerEspacios(std::string&);
+	void setExprecion(Cola);
+	double resultado();
+
 private: 
-	bool esValida(unsigned int, std::string);
-		
+	double resultado(Cola);
+	std::string unificarSignos(std::string signoActual, std::string signoAnterior);
+	bool esOperador(std::string);
+	double realizarOperacion(double, double, std::string);
+	double convertir(std::string);
+
+	Pila<double> numeros;
+	Cola exprecion;
 };
 
 #endif // !CALCULADORA
