@@ -69,8 +69,6 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 					}
 					actual = actual->next;
 				}
-				actual = actual->next;
-				convertirInterFijaPostFija(pila, temp, actual);
 			}
 			else {
 				if (actual->next->valor == '+' || actual->next->valor == '-') {
@@ -90,8 +88,6 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 						}
 						actual = actual->next;
 					}
-					actual = actual->next;
-					convertirInterFijaPostFija(pila, temp, actual);
 				}
 			}
 		}
@@ -100,9 +96,9 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 				expresionPostFija->enqueue(convertirString(pila.pop()));
 			}
 			pila.push(actual->valor);
-			convertirInterFijaPostFija(pila, temp, actual);
 		}
 	}
+	actual = actual->next;
 	convertirInterFijaPostFija(pila, temp, actual);
 }
 
