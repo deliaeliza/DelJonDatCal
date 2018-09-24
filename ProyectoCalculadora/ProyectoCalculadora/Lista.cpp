@@ -1,7 +1,7 @@
 // listadoble.cpp
 // Definición de la clase Lista
 
-#include "Lista.h"
+#include "lista.h"
 
 Lista::Lista() {
 	inicio = nullptr;

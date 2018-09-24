@@ -15,6 +15,7 @@ public:
 	Calculadora(Lista*);
 	~Calculadora();
 	void setExprecion(Cola*);
+	void imprimirCola();
 	double resultado();
 	void convertirExpresionPosfija();
 
@@ -22,7 +23,6 @@ private:
 
 	int precedencia(char);
 	std::string convertirString(char);
-	
 	void convertirInterFijaPostFija(Pila<char>, std::string, Nodo*);
 
 	double resultado(Cola*, Pila<double>);

@@ -2,6 +2,7 @@
 
 Calculadora::Calculadora(Lista* lista) {
 	expresionEntreFija = lista;
+	expresionPostFija = new Cola();
 }
 Calculadora::~Calculadora() {
 }
@@ -32,12 +33,14 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 		temp.append(1, actual->valor);
 		actual = actual->next;
 		while (actual) { // actual != null
-			if (isdigit(actual->valor))
+			if (isdigit(actual->valor)) {
 				temp.append(1, actual->valor);
+				actual = actual->next;
+			}
 			else {
+				actual = actual->prev;
 				break;
 			}
-			actual = actual->next;
 		}
 		expresionPostFija->enqueue(temp);
 		temp = "";
@@ -52,8 +55,8 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 			pila.pop();
 			expresionPostFija->enqueue(convertirString(signo));
 		}
-		pila.pop();
 		expresionPostFija->enqueue(convertirString(actual->valor));
+		pila.pop();
 	}
 	else {
 		if (actual->valor == '-' || actual->valor == '+') {
@@ -62,33 +65,38 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 					if (!isdigit(actual->next->valor) &&
 						actual->next->valor != '(') {
 						expresionPostFija->enqueue(convertirString(actual->valor));
+						actual = actual->next;
 					}
 					else {
 						expresionPostFija->enqueue(convertirString(actual->valor));
 						break;
 					}
-					actual = actual->next;
+				}
+			}
+			else if (actual->next->valor == '+' || actual->next->valor == '-') {
+				while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
+					expresionPostFija->enqueue(convertirString(pila.pop()));
+				}
+				pila.push(actual->valor);
+
+				while (actual && actual->next) {
+					if (!isdigit(actual->next->valor) &&
+						actual->next->valor != '(') {
+						expresionPostFija->enqueue(convertirString(actual->valor));
+						actual = actual->next;
+					}
+					else {
+						expresionPostFija->enqueue(convertirString(actual->valor));
+						//actual = actual->prev;
+						break;
+					}
 				}
 			}
 			else {
-				if (actual->next->valor == '+' || actual->next->valor == '-') {
-					while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
-						expresionPostFija->enqueue(convertirString(pila.pop()));
-					}
-					pila.push(actual->valor);
-
-					while (actual && actual->next) {
-						if (!isdigit(actual->next->valor) &&
-							actual->next->valor != '(') {
-							expresionPostFija->enqueue(convertirString(actual->valor));
-						}
-						else {
-							expresionPostFija->enqueue(convertirString(actual->valor));
-							break;
-						}
-						actual = actual->next;
-					}
+				while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
+					expresionPostFija->enqueue(convertirString(pila.pop()));
 				}
+				pila.push(actual->valor);
 			}
 		}
 		else {
@@ -98,8 +106,9 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 			pila.push(actual->valor);
 		}
 	}
-	actual = actual->next;
-	convertirInterFijaPostFija(pila, temp, actual);
+	if (!actual)
+		return;
+	convertirInterFijaPostFija(pila, temp, actual->next);
 }
 
 
@@ -204,6 +213,11 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 			signo = "";
 		}
 	}
+
+	if (numeros.peek() == -0) {
+		return 0;
+	}
+
 	return numeros.pop();
 }
 
@@ -245,3 +259,9 @@ double Calculadora::convertir(std::string numero) {
 
 }
 
+
+void Calculadora::imprimirCola() {
+	while (expresionPostFija->siguiente() != "") {
+		std::cout << expresionPostFija->dequeue() << " ";
+	}
+}

@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
-#include "convertirPostFija.h"
+#include "calculadora.h"
+#include "lista.h"
+
 
 int main() {
 	
-	Lista *p = new Lista();;
+	Lista *p = new Lista();
 	p->insertarElemento('-');
 	p->insertarElemento('+');
 	p->insertarElemento('-');
@@ -31,10 +33,11 @@ int main() {
 	p->insertarElemento('+');
 	p->insertarElemento('5');
 
-	convertirPostFija  c;
+	Calculadora c = Calculadora(p);
 
-	c.convertirExpresionPosfija(p);
+	c.convertirExpresionPosfija();
 
+	c.imprimirCola();
 
 	system("pause");
 	return 0;
