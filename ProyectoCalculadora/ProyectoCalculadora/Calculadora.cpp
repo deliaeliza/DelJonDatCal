@@ -1,16 +1,131 @@
 #include "calculadora.h"
 
-Calculadora::Calculadora() {
+Calculadora::Calculadora(Lista* lista) {
+	expresionEntreFija = lista;
 }
 Calculadora::~Calculadora() {
 }
 
-void Calculadora::setExprecion(Cola* exprecion) {
-	this->exprecion = exprecion;
+void Calculadora::setExprecion(Cola* expresion) {
+	this->expresionPostFija = expresion;
 }
 double Calculadora::resultado() {
-	return resultado(exprecion);
+	Pila<double> numeros = Pila<double>();
+	return resultado(expresionPostFija, numeros);
 }
+
+void Calculadora::convertirExpresionPosfija() {
+	Pila<char> pila = Pila<char>();
+	std::string temp;
+	convertirInterFijaPostFija(pila, temp, expresionEntreFija->obtenerInicio());
+}
+
+
+void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, Nodo* actual) {
+	if (!actual) { //actual == null
+		while (!pila.estaVacia()) {
+			expresionPostFija->enqueue(convertirString(pila.pop()));
+		}
+		return;
+	}
+	else if (isdigit(actual->valor)) {
+		temp.append(1, actual->valor);
+		actual = actual->next;
+		while (actual) { // actual != null
+			if (isdigit(actual->valor))
+				temp.append(1, actual->valor);
+			else {
+				break;
+			}
+			actual = actual->next;
+		}
+		expresionPostFija->enqueue(temp);
+		temp = "";
+	}
+	else if (actual->valor == '(') {
+		pila.push(actual->valor);
+		expresionPostFija->enqueue(convertirString(actual->valor));
+	}
+	else if (actual->valor == ')') {
+		char signo;
+		while ((signo = pila.peek()) != '(') {
+			pila.pop();
+			expresionPostFija->enqueue(convertirString(signo));
+		}
+		pila.pop();
+		expresionPostFija->enqueue(convertirString(actual->valor));
+	}
+	else {
+		if (actual->valor == '-' || actual->valor == '+') {
+			if (!actual->prev || actual->prev->valor == '-' || actual->prev->valor == '+') {
+				while (actual && actual->next) {
+					if (!isdigit(actual->next->valor) &&
+						actual->next->valor != '(') {
+						expresionPostFija->enqueue(convertirString(actual->valor));
+					}
+					else {
+						expresionPostFija->enqueue(convertirString(actual->valor));
+						break;
+					}
+					actual = actual->next;
+				}
+				actual = actual->next;
+				convertirInterFijaPostFija(pila, temp, actual);
+			}
+			else {
+				if (actual->next->valor == '+' || actual->next->valor == '-') {
+					while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
+						expresionPostFija->enqueue(convertirString(pila.pop()));
+					}
+					pila.push(actual->valor);
+
+					while (actual && actual->next) {
+						if (!isdigit(actual->next->valor) &&
+							actual->next->valor != '(') {
+							expresionPostFija->enqueue(convertirString(actual->valor));
+						}
+						else {
+							expresionPostFija->enqueue(convertirString(actual->valor));
+							break;
+						}
+						actual = actual->next;
+					}
+					actual = actual->next;
+					convertirInterFijaPostFija(pila, temp, actual);
+				}
+			}
+		}
+		else {
+			while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
+				expresionPostFija->enqueue(convertirString(pila.pop()));
+			}
+			pila.push(actual->valor);
+			convertirInterFijaPostFija(pila, temp, actual);
+		}
+	}
+	convertirInterFijaPostFija(pila, temp, actual);
+}
+
+
+int Calculadora::precedencia(char c) {
+	if (c == '(')
+		return 1;
+	if (c == '+' || c == '-')
+		return 2;
+	if (c == '*' || c == '/')
+		return 3;
+	if (c == '^')
+		return 4;
+	return -1;
+}
+
+std::string Calculadora::convertirString(char c) {
+	std::string expresion;
+	expresion = expresion + c;
+	return expresion;
+}
+
+
 
 /*double CalcularPostFija::resultado() {
 Nodo* actual = exprecion.obtenerInicio();
@@ -37,7 +152,7 @@ actual = actual->next;
 }
 }*/
 
-double Calculadora::resultado(Cola* expr) {
+double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 	std::string signo = "";
 	while (expr->siguiente() != "") {
 		std::string actual = expr->dequeue();
@@ -73,7 +188,7 @@ double Calculadora::resultado(Cola* expr) {
 				if (actual == ")") {
 					contador--;
 					if (contador == 0) {
-						resultadoParentesis = resultado(aux);
+						resultadoParentesis = resultado(aux,numeros);
 					}
 				}
 				else {
@@ -133,3 +248,4 @@ double Calculadora::convertir(std::string numero) {
 	}*/
 
 }
+
