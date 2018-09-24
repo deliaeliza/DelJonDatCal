@@ -201,8 +201,6 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 					actual = expr->dequeue();
 				}
 			}
-
-
 			if (signo == "-")
 				resultadoParentesis *= -1;
 			numeros.push(resultadoParentesis);
