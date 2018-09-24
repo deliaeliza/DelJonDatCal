@@ -116,7 +116,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="calculadora.cpp" />
-    <ClCompile Include="calcularPostFija.cpp" />
     <ClCompile Include="cola.cpp" />
     <ClCompile Include="control.cpp" />
     <ClCompile Include="convertirPostFija.cpp" />
@@ -125,7 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculadora.h" />
-    <ClInclude Include="calcularPostFija.h" />
     <ClInclude Include="cola.h" />
     <ClInclude Include="control.h" />
     <ClInclude Include="convertirPostFija.h" />
