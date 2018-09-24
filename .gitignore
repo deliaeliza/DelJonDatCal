@@ -3,3 +3,11 @@
 *.obj
 *.obj
 *.obj
+ProyectoCalculadora/.vs/ProyectoCalculadora/v15/ipch/AutoPCH/5f60489ef24b77ba/CALCULADORA.ipch
+ProyectoCalculadora/.vs/ProyectoCalculadora/v15/.suo
+ProyectoCalculadora/.vs/ProyectoCalculadora/v15/ipch/AutoPCH/328a7e8f760a12dc/CALCULARPOSTFIJA.ipch
+ProyectoCalculadora/.vs/ProyectoCalculadora/v15/Browse.VC.opendb
+*.ipch
+ProyectoCalculadora/.vs/ProyectoCalculadora/v15/ipch/AutoPCH/e297d7c04f975de7/CONVERTIRPOSTFIJA.ipch
+ProyectoCalculadora/ProyectoCalculadora/x64/Debug/Calculadora.obj
+*.obj

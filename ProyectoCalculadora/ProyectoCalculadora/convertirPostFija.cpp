@@ -219,21 +219,25 @@ void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string 
 			pila.pop();
 			expresionPostFija.enqueue(convertirString(signo));
 		}
-		pila.pop();
+		expresionPostFija.enqueue(convertirString(pila.pop()));
 	}
 	else {
 		char elemento = ' ';
 		if (actual->valor == '-' || actual->valor == '+') {
 			if (!actual->prev) {
-				while (actual) {
+				while (actual && actual->next) {
 					if (!isdigit(actual->next->valor) && 
 						actual->next->valor != '(') {
 						expresionPostFija.enqueue(convertirString(actual->valor));
 					}
-					else
+					else {
+						expresionPostFija.enqueue(convertirString(actual->valor));
 						break;
+					}
 					actual = actual->next;
 				}
+				actual = actual->next;
+				convertirInterFijaPostFija(pila,temp, actual);
 			}
 			else {
 				if (actual->next->valor == '+' || actual->next->valor == '-') {

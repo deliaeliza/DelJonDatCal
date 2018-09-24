@@ -1,56 +1,39 @@
 #include <iostream>
 #include <string>
 #include "convertirPostFija.h"
-#include "calcularPostFija.h"
 
 int main() {
-	/*
+	
 	Lista *p = new Lista();;
-	p->insertarElemento('4');
-	p->insertarElemento('5');
-	p->insertarElemento('*');
-	p->insertarElemento('4');
-	p->insertarElemento('/');
-	p->insertarElemento('9');
-	p->insertarElemento('5');
 	p->insertarElemento('-');
-	p->insertarElemento('6');
-	p->insertarElemento('3');
+	p->insertarElemento('+');
+	p->insertarElemento('-');
+	p->insertarElemento('+');
+	p->insertarElemento('-');
+	p->insertarElemento('0');
+	p->insertarElemento('-');
+	p->insertarElemento('(');
+	p->insertarElemento('-');
+	p->insertarElemento('7');
+	p->insertarElemento('-');
+	p->insertarElemento('-');
+	p->insertarElemento('+');
+	p->insertarElemento('-');
+	p->insertarElemento('+');
+	p->insertarElemento('-');
+	p->insertarElemento('7');
+	p->insertarElemento(')');
+	p->insertarElemento('^');
+	p->insertarElemento('2');
+	p->insertarElemento('*');
+	p->insertarElemento('+');
+	p->insertarElemento('-');
+	p->insertarElemento('+');
+	p->insertarElemento('5');
 
 	convertirPostFija  c;
 
-	c.convertirExpresionPosfija(p);*/
-
-	Cola *c = new Cola();
-	c->enqueue("-");
-	c->enqueue("+");
-	c->enqueue("-");
-	c->enqueue("+");
-	c->enqueue("-");
-	c->enqueue("0");
-	c->enqueue("(");
-	c->enqueue("-");
-	c->enqueue("7");
-	c->enqueue("-");
-	c->enqueue("+");
-	c->enqueue("-");
-	c->enqueue("+");
-	c->enqueue("-");
-	c->enqueue("7");
-	c->enqueue("-");
-	c->enqueue(")");
-	c->enqueue("2");
-	c->enqueue("^");
-	c->enqueue("+");
-	c->enqueue("-");
-	c->enqueue("+");
-	c->enqueue("5");
-	c->enqueue("*");
-	c->enqueue("-");
-
-	CalcularPostFija result = CalcularPostFija(c);
-	std::cout << result.resultado() << "\n";
-
+	c.convertirExpresionPosfija(p);
 
 
 	system("pause");
