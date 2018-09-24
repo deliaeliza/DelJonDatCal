@@ -118,6 +118,7 @@
     <ClCompile Include="calculadora.cpp" />
     <ClCompile Include="calcularPostFija.cpp" />
     <ClCompile Include="cola.cpp" />
+    <ClCompile Include="control.cpp" />
     <ClCompile Include="convertirPostFija.cpp" />
     <ClCompile Include="lista.cpp" />
     <ClCompile Include="main.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="calculadora.h" />
     <ClInclude Include="calcularPostFija.h" />
     <ClInclude Include="cola.h" />
+    <ClInclude Include="control.h" />
     <ClInclude Include="convertirPostFija.h" />
     <ClInclude Include="lista.h" />
     <ClInclude Include="pila.h" />

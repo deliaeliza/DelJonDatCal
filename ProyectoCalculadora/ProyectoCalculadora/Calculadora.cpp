@@ -4,20 +4,13 @@ Calculadora::Calculadora() {
 }
 Calculadora::~Calculadora() {
 }
-/*
-#include "calcularPostFija.h"
 
-CalcularPostFija::CalcularPostFija(Cola exprecion) {
+void Calculadora::setExprecion(Cola* exprecion) {
 	this->exprecion = exprecion;
-	numeros = Pila<double>();
 }
-CalcularPostFija::~CalcularPostFija() {
-
+double Calculadora::resultado() {
+	return resultado(exprecion);
 }
-
-void CalcularPostFija::setExprecion(Cola exprecion) {
-	this->exprecion = exprecion;
-}*/
 
 /*double CalcularPostFija::resultado() {
 Nodo* actual = exprecion.obtenerInicio();
@@ -43,11 +36,11 @@ throw(error);
 actual = actual->next;
 }
 }*/
-/*
-double CalcularPostFija::resultado(Cola expr) {
+
+double Calculadora::resultado(Cola* expr) {
 	std::string signo = "";
-	while (expr.siguiente() != "") {
-		std::string actual = expr.dequeue();
+	while (expr->siguiente() != "") {
+		std::string actual = expr->dequeue();
 		if (esOperador(actual)) {//Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
 			if (!numeros.estaVacia()) {
 				double num = numeros.pop();
@@ -69,11 +62,11 @@ double CalcularPostFija::resultado(Cola expr) {
 				signo = ((signo == "") ? actual : unificarSignos(actual, signo));
 		}
 		else  if (actual == "(") {
-			Cola aux = Cola();
+			Cola *aux = new Cola();
 			unsigned int contador = 1;
-			actual = expr.dequeue();
+			actual = expr->dequeue();
 			double resultadoParentesis = 0;
-			while (actual != ")" && contador != 0) {
+			while (contador != 0) {
 				if (actual == "(") {
 					contador++;
 				}
@@ -84,10 +77,12 @@ double CalcularPostFija::resultado(Cola expr) {
 					}
 				}
 				else {
-					aux.enqueue(actual);
-					actual = expr.dequeue();
+					aux->enqueue(actual);
+					actual = expr->dequeue();
 				}
 			}
+
+
 			if (signo == "-")
 				resultadoParentesis *= -1;
 			numeros.push(resultadoParentesis);
@@ -101,7 +96,7 @@ double CalcularPostFija::resultado(Cola expr) {
 	return numeros.pop();
 }
 
-std::string CalcularPostFija::unificarSignos(std::string signoActual, std::string signoAnterior) {
+std::string Calculadora::unificarSignos(std::string signoActual, std::string signoAnterior) {
 	if (signoAnterior == "+") {
 		if (signoActual == "-")
 			signoAnterior = "-";
@@ -113,11 +108,11 @@ std::string CalcularPostFija::unificarSignos(std::string signoActual, std::strin
 	return signoAnterior;
 }
 
-bool CalcularPostFija::esOperador(std::string item) {
+bool Calculadora::esOperador(std::string item) {
 	return (item == "+" || item == "-" || item == "*" || item == "/" || item == "^");
 }
 
-double CalcularPostFija::realizarOperacion(double der, double izq, std::string operador) {
+double Calculadora::realizarOperacion(double der, double izq, std::string operador) {
 	if (operador == "+")
 		return izq + der;
 	if (operador == "-")
@@ -130,11 +125,11 @@ double CalcularPostFija::realizarOperacion(double der, double izq, std::string o
 		return izq / der;
 	throw "Error matematico";
 }
-double CalcularPostFija::convertir(std::string numero) {
+double Calculadora::convertir(std::string numero) {
 	//try {
 	return std::stod(numero);
 	/*} catch (const std::invalid_argument& ia) {
 	throw "Error matematico";
 	}*/
 
-//}
+}
