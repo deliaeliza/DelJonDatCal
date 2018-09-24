@@ -26,7 +26,7 @@ private:
 	double convertir(std::string);
 
 	Pila<double> numeros;
-	Cola exprecion;
+	Cola *exprecion;
 };
 
 #endif // !CALCULADORA
