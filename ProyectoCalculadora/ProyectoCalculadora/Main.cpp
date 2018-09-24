@@ -1,35 +1,26 @@
 #include <iostream>
 #include <string>
 #include "convertirPostFija.h"
+#include "calcularPostFija.h"
 
 int main() {
 
-	Lista p;
-	p.insertarElemento('4');
-	p.insertarElemento('5');
-	p.insertarElemento('*');
-	p.insertarElemento('4');
-	p.insertarElemento('/');
-	p.insertarElemento('9');
-	p.insertarElemento('5');
-	p.insertarElemento('-');
-	p.insertarElemento('6');
-	p.insertarElemento('3');
-	/*p.insertarElemento();
-	p.insertarElemento();
-	p.insertarElemento();
-	p.insertarElemento();
-	p.insertarElemento();
-	p.insertarElemento();
-	p.insertarElemento();*/
+	Lista *p = new Lista();;
+	p->insertarElemento('4');
+	p->insertarElemento('5');
+	p->insertarElemento('*');
+	p->insertarElemento('4');
+	p->insertarElemento('/');
+	p->insertarElemento('9');
+	p->insertarElemento('5');
+	p->insertarElemento('-');
+	p->insertarElemento('6');
+	p->insertarElemento('3');
 
-	convertirPostFija  c = convertirPostFija(p);
+	convertirPostFija  c;
 
-	c.convertirExpresionPosfija();
+	c.convertirExpresionPosfija(p);
 
-	while (c.getExpresionPostFija().siguiente() != "") {
-		std::cout << c.getExpresionPostFija().dequeue() << " ";
-	}
 
 	system("pause");
 	return 0;

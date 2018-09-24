@@ -9,8 +9,8 @@
 
 class convertirPostFija {
 public:
-	convertirPostFija(Lista);
-	void convertirExpresionPosfija();
+	convertirPostFija();
+	void convertirExpresionPosfija(Lista*);
 	void convertirInterFijaPostFija(Pila<char>,std::string, Nodo*);
 	std::string convertirString(char);
 	char signoMayor(char, char);

@@ -39,7 +39,7 @@ void CalcularPostFija::setExprecion(Cola exprecion) {
 
 double CalcularPostFija::resultado(Cola expr) {
 	std::string signo = "";
-	while (expr.siguiente != "") {
+	while (expr.siguiente() != "") {
 		std::string actual = expr.dequeue();
 		if (esOperador(actual)) {//Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
 			if (!numeros.estaVacia()) {

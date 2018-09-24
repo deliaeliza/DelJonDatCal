@@ -48,9 +48,8 @@ void convertirPostFija::convertirInterFijaPostFija() {
 	}
 }*/
 
-convertirPostFija::convertirPostFija(Lista expresion) {
-	this->expresion = expresion;
-	expresionPostFija =  Cola();
+convertirPostFija::convertirPostFija() {
+	expresionPostFija = Cola();
 }
 
 Cola convertirPostFija::getExpresionPostFija() {
@@ -184,14 +183,14 @@ void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string 
 	convertirInterFijaPostFija(pila, temp, ++pos, signoA);
 }*/
 
-void convertirPostFija::convertirExpresionPosfija() {
+void convertirPostFija::convertirExpresionPosfija(Lista *lista) {
 	Pila<char> pila = Pila<char>();
 	std::string temp;
-	convertirInterFijaPostFija(pila, temp, expresion.obtenerInicio());
+	convertirInterFijaPostFija(pila, temp, lista->obtenerInicio());
 }
 
 void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string temp, Nodo* actual) {
-	if (actual) { //actual != null
+	if (!actual) { //actual == null
 		while (!pila.estaVacia()) {
 			expresionPostFija.enqueue(convertirString(pila.pop()));
 		}
@@ -199,6 +198,7 @@ void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string 
 	}
 	else if (isdigit(actual->valor)) {
 		temp.append(1, actual->valor);
+		actual = actual->next;
 		while (actual) { // actual != null
 			if (isdigit(actual->valor))
 				temp.append(1, actual->valor);
@@ -263,8 +263,9 @@ void convertirPostFija::convertirInterFijaPostFija(Pila<char> pila, std::string 
 		}
 		
 		pila.push(actual->valor);
+		actual = actual->next;
 	}
-	convertirInterFijaPostFija(pila, temp, actual->next);
+	convertirInterFijaPostFija(pila, temp,actual);
 }
 
 
