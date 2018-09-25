@@ -1,10 +1,12 @@
 #include "calculadora.h"
 
-Calculadora::Calculadora(Lista* lista) {
+Calculadora::Calculadora(Lista lista) {
+	cadenaPostFija = "";
 	expresionEntreFija = lista;
 	expresionPostFija = new Cola();
 }
 Calculadora::~Calculadora() {
+	delete expresionPostFija;
 }
 
 void Calculadora::setExpresion(Cola* expresion) {
@@ -15,8 +17,8 @@ std::string Calculadora::getCadenaPostFija() {
 	return cadenaPostFija;
 }
 
-double Calculadora::resultado() {
-	convertirExpresionPosfija();
+double Calculadora::resultado(Lista l) {
+	convertirExpresionPosfija(l);
 	Pila<double> numeros = Pila<double>();
 	try {
 		return resultado(expresionPostFija, numeros);
@@ -25,10 +27,9 @@ double Calculadora::resultado() {
 	}
 }
 
-void Calculadora::convertirExpresionPosfija() {
+void Calculadora::convertirExpresionPosfija(Lista& l) {
 	Pila<char> pila = Pila<char>();
-	std::string temp;
-	convertirInterFijaPostFija(pila, expresionEntreFija->obtenerInicio());
+	convertirInterFijaPostFija(pila, l.obtenerInicio());
 }
 
 

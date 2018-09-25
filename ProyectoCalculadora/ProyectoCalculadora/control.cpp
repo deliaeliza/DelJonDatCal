@@ -1,15 +1,14 @@
 #include "control.h"
 
 Control::Control() {
-
+	calculadora = new Calculadora();
 }
 
 Control::~Control() {
-
+	delete calculadora;
 }
 
-bool Control::esValida(std::string expr) {//quitar
-	removerEspacios(expr);
+bool Control::esValida(std::string expr) {
 	return esValida(0, expr);
 }
 
@@ -55,9 +54,28 @@ void Control::removerEspacios(std::string& exp) {
 		}
 }
 
-Lista* Control::pasarExpresionLista(std::string expresion) {
-	Lista* expresionEntrefija = new Lista();
+Lista Control::pasarExpresionLista(std::string expresion) {
+	Lista expresionEntrefija = Lista();
 	for (std::string::size_type i = 0; i < expresion.size(); ++i)
-		expresionEntrefija->insertarElemento(expresion[i]);
+		expresionEntrefija.insertarElemento(expresion[i]);
 	return expresionEntrefija;
+}
+
+double Control::obtenerResultado(std::string expr) {
+	removerEspacios(expr);
+	try {
+		Lista aux = pasarExpresionLista(expr);
+		if (!esValida(expr))
+			throw "Error de sintaxis";
+		return calculadora->resultado(aux);
+	} catch (std::string error) {
+		throw error;
+	}
+}
+
+std::string Control::obtenerPostFija() {
+	std::string postfija = calculadora->getCadenaPostFija();
+	if (postfija == "")
+		throw "Error, no hay expresion";
+	return postfija;
 }

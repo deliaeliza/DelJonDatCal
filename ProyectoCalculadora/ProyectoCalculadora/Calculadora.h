@@ -12,17 +12,15 @@
 
 class Calculadora {
 public:
-	Calculadora(Lista*);
+	Calculadora(Lista);
 	~Calculadora();
 	void setExpresion(Cola*);
 	std::string getCadenaPostFija();
-	void imprimirCola();
-	double resultado();
-
+	double resultado(Lista);
 private: 
 	int precedencia(char);
 	std::string convertirString(char);
-	void convertirExpresionPosfija();
+	void convertirExpresionPosfija(Lista&);
 	void convertirInterFijaPostFija(Pila<char>, Nodo*);
 
 	double resultado(Cola*, Pila<double>);
@@ -32,7 +30,7 @@ private:
 	double convertir(std::string);
 
 	Cola* expresionPostFija;
-	Lista *expresionEntreFija;
+	Lista expresionEntreFija;
 	std::string cadenaPostFija;
 };
 
