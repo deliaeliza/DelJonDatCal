@@ -1,16 +1,11 @@
 #include "calculadora.h"
 
-Calculadora::Calculadora(Lista lista) {
+Calculadora::Calculadora() {
 	cadenaPostFija = "";
-	expresionEntreFija = lista;
 	expresionPostFija = new Cola();
 }
 Calculadora::~Calculadora() {
 	delete expresionPostFija;
-}
-
-void Calculadora::setExpresion(Cola* expresion) {
-	this->expresionPostFija = expresion;
 }
 
 std::string Calculadora::getCadenaPostFija() {

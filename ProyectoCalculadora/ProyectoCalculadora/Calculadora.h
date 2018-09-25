@@ -12,9 +12,8 @@
 
 class Calculadora {
 public:
-	Calculadora(Lista);
+	Calculadora();
 	~Calculadora();
-	void setExpresion(Cola*);
 	std::string getCadenaPostFija();
 	double resultado(Lista);
 private: 
@@ -30,7 +29,6 @@ private:
 	double convertir(std::string);
 
 	Cola* expresionPostFija;
-	Lista expresionEntreFija;
 	std::string cadenaPostFija;
 };
 
