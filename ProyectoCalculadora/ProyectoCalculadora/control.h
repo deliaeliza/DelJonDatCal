@@ -17,7 +17,7 @@ private:
 	static bool esOperador(char);
 	bool esValida(unsigned int, std::string);
 	static void removerEspacios(std::string&);
-	Lista pasarExpresionLista(std::string);
+	void pasarExpresionLista(std::string, Lista&);
 	Calculadora * calculadora; 
 };
 #endif // !CONTROL_H

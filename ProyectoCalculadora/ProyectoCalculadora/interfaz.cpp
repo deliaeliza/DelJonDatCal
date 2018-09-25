@@ -33,7 +33,7 @@ void Interfaz::calcularExpresion() {
 		std::cout << "\t  " << control.obtenerPostFija() << "\n\n";
 		std::cout << "\t------------------------------------------\n\n";
 	}
-	catch (std::string error) {
+	catch (const char* error) {
 		std::cout << "\t  "<< error << "\n";
 		std::cout << "\t------------------------------------------\n\n";
 	}

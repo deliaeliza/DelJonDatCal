@@ -1,7 +1,8 @@
 #include "cola.h"
 
 Cola::Cola() {
-	head = tail = nullptr;
+	head = nullptr;
+	tail = nullptr;
 }
 
 Cola::~Cola() {

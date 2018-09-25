@@ -54,21 +54,20 @@ void Control::removerEspacios(std::string& exp) {
 		}
 }
 
-Lista Control::pasarExpresionLista(std::string expresion) {
-	Lista expresionEntrefija = Lista();
+void Control::pasarExpresionLista(std::string expresion, Lista& expresionEntrefija) {
 	for (std::string::size_type i = 0; i < expresion.size(); ++i)
 		expresionEntrefija.insertarElemento(expresion[i]);
-	return expresionEntrefija;
 }
 
 double Control::obtenerResultado(std::string expr) {
 	removerEspacios(expr);
 	try {
-		Lista aux = pasarExpresionLista(expr);
+		Lista aux = Lista();
+		pasarExpresionLista(expr, aux);
 		if (!esValida(expr))
 			throw "Error de sintaxis";
 		return calculadora->resultado(aux);
-	} catch (std::string error) {
+	} catch (const char* error) {
 		throw error;
 	}
 }
