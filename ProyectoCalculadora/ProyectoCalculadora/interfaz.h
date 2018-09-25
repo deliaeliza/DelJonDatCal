@@ -9,10 +9,11 @@ class Interfaz {
 public:
 	Interfaz();
 	~Interfaz();
-	void armarCalculadora();
-	//std::string pedirExpresionInterfija();
+	void mostrarDatos();
 private:
-	Control* control;
+	void armarInicio();
+	void calcularExpresion();
+	Control control;
 };
 
 #endif // !INTERFAZ_H

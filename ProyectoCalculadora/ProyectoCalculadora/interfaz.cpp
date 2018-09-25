@@ -2,47 +2,52 @@
 
 
 Interfaz::Interfaz() {
-	control = new Control();
+	control = Control();
 }
 
 Interfaz::~Interfaz() {
 }
 
-void Interfaz::armarCalculadora() {
-	
-	std::string expresionEntreFija;
-	std::cout << "\t\t ______________________________________________ " << "\n";
-	std::cout << "\t\t|  __________________________________________  |" << "\n";
-	std::cout << "\t\t| |                                          | |" << "\n";
-	std::cout << "\t\t| |                                          | |" << "\n";
-	std::cout << "\t\t| |                                          | |" << "\n";
-	std::cout << "\t\t| |__________________________________________| |" << "\n";
-	std::cout << "\t\t|  _________  _________  _________  _________  |" << "\n";
-	std::cout << "\t\t| |         ||         ||         ||         | |" << "\n";
-	std::cout << "\t\t| |    7    ||    8    ||    9    ||    ^    | |" << "\n";
-	std::cout << "\t\t| |_________||_________||_________||_________| |" << "\n";
-	std::cout << "\t\t|  _________  _________  _________  _________  |" << "\n";
-	std::cout << "\t\t| |         ||         ||         ||         | |" << "\n";
-	std::cout << "\t\t| |    4    ||    5    ||    6    ||    -    | |" << "\n";
-	std::cout << "\t\t| |_________||_________||_________||_________| |" << "\n";
-	std::cout << "\t\t|  _________  _________  _________  _________  |" << "\n";
-	std::cout << "\t\t| |         ||         ||         ||         | |" << "\n";
-	std::cout << "\t\t| |    1    ||    2    ||    3    ||    /    | |" << "\n";
-	std::cout << "\t\t| |_________||_________||_________||_________| |" << "\n";
-	std::cout << "\t\t|  _________  _________  _________  _________  |" << "\n";
-	std::cout << "\t\t| |         ||         ||         ||         | |" << "\n";
-	std::cout << "\t\t| |    0    ||    *    ||    +    ||    =    | |" << "\n";
-	std::cout << "\t\t| |_________||_________||_________||_________| |" << "\n";
-	std::cout << "\t\t|______________________________________________|" << "\n";
-
-	//Control c = Control();
-
-	//c.obtenerResultado
-
-	std::cout << "\n\nExpresion Entre-Fija --> Expresion Post-Fija" << "\n";
-	//std::cout << "\n"<< <<"\n";
+void Interfaz::armarInicio() {
+	std::cout << "\t\t\tCALCULADORA\n\n";
+	std::cout << "\t------------------------------------------\n";
+	std::cout << "\t\t   Caracteres Validos\n";
+	std::cout << "\t\t7\t8\t9\t^\n";
+	std::cout << "\t\t4\t5\t6\t-\n";
+	std::cout << "\t\t1\t2\t3\t/\n";
+	std::cout << "\t\t0\t*\t+\t=\n\n";
+	std::cout << "\t------------------------------------------\n\n";
 }
-/*
-std::string Interfaz::pedirExpresionInterfija() {
 
-}*/
+void Interfaz::calcularExpresion() {
+	std::string expresion;
+	armarInicio();
+	std::cout << "\tDigite la expresion a calcular: \n\n";
+	std::cout << "\t  ";
+	getline(std::cin,expresion);
+	std::cout << "\n";
+	std::cout << "\t------------------------------------------\n\n";
+	try {
+		std::cout << "\t  El resultado es: " << /*control.obtenerResultado(expresion) << */"\n\n";
+		std::cout << "\t  Expresion en notacion Post-Fija:\n\n";
+		std::cout << "\t  " << /*control.obtenerPostFija()*/ expresion << "\n\n";
+		std::cout << "\t------------------------------------------\n\n";
+	}
+	catch (std::string error) {
+		std::cout << "\t  "<< error << "\n";
+		std::cout << "\t------------------------------------------\n\n";
+	}
+}
+
+
+void Interfaz::mostrarDatos() {
+	std::string continuar = "";
+	do {
+		system("cls");
+		calcularExpresion();
+		std::cout << "\tRealizar otra operacion: \n\t  1: Cualquier Tecla 2: No" << "\n";
+		std::cout << "\t  ";
+		getline(std::cin, continuar);
+		std::cout << "\t------------------------------------------\n\n";
+	} while (continuar != "2" && continuar != "No" && continuar != "NO" && continuar != "no" && continuar != "nO");
+}
