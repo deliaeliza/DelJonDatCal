@@ -1,5 +1,15 @@
 #include "control.h"
+
+Control::Control() {
+
+}
+
+Control::~Control() {
+
+}
+
 bool Control::esValida(std::string expr) {//quitar
+	removerEspacios(expr);
 	return esValida(0, expr);
 }
 
@@ -26,7 +36,7 @@ bool Control::esValida(unsigned int pos, std::string expr) {
 			if (parentesis.estaVacia())
 				hayNumero = false;
 		}
-
+		pos++;
 	}
 	if (!parentesis.estaVacia())
 		return false;
@@ -43,4 +53,11 @@ void Control::removerEspacios(std::string& exp) {
 			exp.erase(i, 1);
 			--i;
 		}
+}
+
+Lista* Control::pasarExpresionLista(std::string expresion) {
+	Lista* expresionEntrefija = new Lista();
+	for (std::string::size_type i = 0; i < expresion.size(); ++i)
+		expresionEntrefija->insertarElemento(expresion[i]);
+	return expresionEntrefija;
 }

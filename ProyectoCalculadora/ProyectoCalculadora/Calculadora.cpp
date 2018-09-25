@@ -10,6 +10,11 @@ Calculadora::~Calculadora() {
 void Calculadora::setExprecion(Cola* expresion) {
 	this->expresionPostFija = expresion;
 }
+
+std::string Calculadora::getCadenaPostFija() {
+	return cadenaPostFija;
+}
+
 double Calculadora::resultado() {
 	Pila<double> numeros = Pila<double>();
 	return resultado(expresionPostFija, numeros);
@@ -18,18 +23,22 @@ double Calculadora::resultado() {
 void Calculadora::convertirExpresionPosfija() {
 	Pila<char> pila = Pila<char>();
 	std::string temp;
-	convertirInterFijaPostFija(pila, temp, expresionEntreFija->obtenerInicio());
+	convertirInterFijaPostFija(pila, expresionEntreFija->obtenerInicio());
 }
 
 
-void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, Nodo* actual) {
+void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
+	char elemento;
 	if (!actual) { //actual == null
 		while (!pila.estaVacia()) {
-			expresionPostFija->enqueue(convertirString(pila.pop()));
+			elemento = pila.pop();
+			expresionPostFija->enqueue(convertirString(elemento));
+			cadenaPostFija = cadenaPostFija + elemento + " ";
 		}
 		return;
 	}
 	else if (isdigit(actual->valor)) {
+		std::string temp;
 		temp.append(1, actual->valor);
 		actual = actual->next;
 		while (actual) { // actual != null
@@ -43,72 +52,70 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, std::string temp, 
 			}
 		}
 		expresionPostFija->enqueue(temp);
+		cadenaPostFija = cadenaPostFija + temp + " ";
 		temp = "";
 	}
 	else if (actual->valor == '(') {
 		pila.push(actual->valor);
 		expresionPostFija->enqueue(convertirString(actual->valor));
+		cadenaPostFija = cadenaPostFija + actual->valor + " ";
 	}
 	else if (actual->valor == ')') {
 		char signo;
 		while ((signo = pila.peek()) != '(') {
 			pila.pop();
 			expresionPostFija->enqueue(convertirString(signo));
+			cadenaPostFija = cadenaPostFija + signo + " ";
 		}
 		expresionPostFija->enqueue(convertirString(actual->valor));
+		cadenaPostFija = cadenaPostFija + actual->valor + " ";
 		pila.pop();
 	}
 	else {
 		if (actual->valor == '-' || actual->valor == '+') {
-			if (!actual->prev || actual->prev->valor == '-' || actual->prev->valor == '+') {
-				while (actual && actual->next) {
-					if (!isdigit(actual->next->valor) &&
-						actual->next->valor != '(') {
+			if (actual->prev && ( isdigit(actual->prev->valor) || actual->prev->valor == ')')) {
+				while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
+					elemento = pila.pop();
+					expresionPostFija->enqueue(convertirString(elemento));
+					cadenaPostFija = cadenaPostFija + elemento + " ";
+				}
+				pila.push(actual->valor);
+			}
+			if (!actual->prev || actual->prev->valor == '/' || actual->prev->valor == '*' ||
+				actual->prev->valor == '(' || actual->prev->valor == '^' || actual->prev->valor == '+' || 
+				actual->prev->valor == '-') {
+				while (actual->next) {
+					if (!isdigit(actual->next->valor) && actual->next->valor != '(') {
 						expresionPostFija->enqueue(convertirString(actual->valor));
+						cadenaPostFija = cadenaPostFija + actual->valor;
 						actual = actual->next;
 					}
 					else {
 						expresionPostFija->enqueue(convertirString(actual->valor));
+						cadenaPostFija = cadenaPostFija + actual->valor;
 						break;
 					}
 				}
-			}
-			else if (actual->next->valor == '+' || actual->next->valor == '-') {
-				while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
-					expresionPostFija->enqueue(convertirString(pila.pop()));
-				}
-				pila.push(actual->valor);
-
-				while (actual && actual->next) {
-					if (!isdigit(actual->next->valor) &&
-						actual->next->valor != '(') {
-						expresionPostFija->enqueue(convertirString(actual->valor));
-						actual = actual->next;
-					}
-					else {
-						expresionPostFija->enqueue(convertirString(actual->valor));
-						//actual = actual->prev;
-						break;
-					}
-				}
-			}
-			else {
-				while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
-					expresionPostFija->enqueue(convertirString(pila.pop()));
-				}
-				pila.push(actual->valor);
-			}
+			 }
 		}
 		else {
 			while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
-				expresionPostFija->enqueue(convertirString(pila.pop()));
+				elemento = pila.pop();
+				expresionPostFija->enqueue(convertirString(elemento));
+				cadenaPostFija = cadenaPostFija + elemento + " ";
 			}
 			pila.push(actual->valor);
 		}
 	}
-	if (!actual)
+	if (!actual) {
+		while (!pila.estaVacia()) {
+			elemento = pila.pop();
+			expresionPostFija->enqueue(convertirString(elemento));
+			cadenaPostFija = cadenaPostFija + elemento + " ";
+		}
 		return;
-	convertirInterFijaPostFija(pila, temp, actual->next);
+	}
+	convertirInterFijaPostFija(pila, actual->next);
 }
 
 

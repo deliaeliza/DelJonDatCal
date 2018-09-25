@@ -15,15 +15,15 @@ public:
 	Calculadora(Lista*);
 	~Calculadora();
 	void setExprecion(Cola*);
+	std::string getCadenaPostFija();
 	void imprimirCola();
 	double resultado();
 	void convertirExpresionPosfija();
 
 private: 
-
 	int precedencia(char);
 	std::string convertirString(char);
-	void convertirInterFijaPostFija(Pila<char>, std::string, Nodo*);
+	void convertirInterFijaPostFija(Pila<char>, Nodo*);
 
 	double resultado(Cola*, Pila<double>);
 	std::string unificarSignos(std::string signoActual, std::string signoAnterior);

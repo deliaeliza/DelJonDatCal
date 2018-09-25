@@ -8,6 +8,11 @@
 
 class Control {
 public:
+	Control();
+	~Control();
+
+	Lista* pasarExpresionLista(std::string);
+
 	double obtenerResultado(std::string);
 	std::string obtenerPostFija();
 	bool esValida(std::string);

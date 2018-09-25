@@ -118,6 +118,7 @@
     <ClCompile Include="calculadora.cpp" />
     <ClCompile Include="cola.cpp" />
     <ClCompile Include="control.cpp" />
+    <ClCompile Include="interfaz.cpp" />
     <ClCompile Include="lista.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -125,6 +126,7 @@
     <ClInclude Include="calculadora.h" />
     <ClInclude Include="cola.h" />
     <ClInclude Include="control.h" />
+    <ClInclude Include="interfaz.h" />
     <ClInclude Include="lista.h" />
     <ClInclude Include="pila.h" />
   </ItemGroup>
