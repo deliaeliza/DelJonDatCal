@@ -1,6 +1,13 @@
 #include "interfaz.h"
 
 
+Interfaz::Interfaz() {
+	control = new Control();
+}
+
+Interfaz::~Interfaz() {
+}
+
 void Interfaz::armarCalculadora() {
 	
 	std::string expresionEntreFija;

@@ -7,9 +7,12 @@
 
 class Interfaz {
 public:
+	Interfaz();
+	~Interfaz();
 	void armarCalculadora();
 	//std::string pedirExpresionInterfija();
-
+private:
+	Control* control;
 };
 
 #endif // !INTERFAZ_H

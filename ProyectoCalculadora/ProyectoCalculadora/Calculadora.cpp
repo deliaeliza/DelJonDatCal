@@ -7,7 +7,7 @@ Calculadora::Calculadora(Lista* lista) {
 Calculadora::~Calculadora() {
 }
 
-void Calculadora::setExprecion(Cola* expresion) {
+void Calculadora::setExpresion(Cola* expresion) {
 	this->expresionPostFija = expresion;
 }
 
@@ -16,6 +16,7 @@ std::string Calculadora::getCadenaPostFija() {
 }
 
 double Calculadora::resultado() {
+	convertirExpresionPosfija();
 	Pila<double> numeros = Pila<double>();
 	return resultado(expresionPostFija, numeros);
 }

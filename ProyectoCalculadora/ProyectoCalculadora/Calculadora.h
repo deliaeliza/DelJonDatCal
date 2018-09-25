@@ -14,15 +14,15 @@ class Calculadora {
 public:
 	Calculadora(Lista*);
 	~Calculadora();
-	void setExprecion(Cola*);
+	void setExpresion(Cola*);
 	std::string getCadenaPostFija();
 	void imprimirCola();
 	double resultado();
-	void convertirExpresionPosfija();
 
 private: 
 	int precedencia(char);
 	std::string convertirString(char);
+	void convertirExpresionPosfija();
 	void convertirInterFijaPostFija(Pila<char>, Nodo*);
 
 	double resultado(Cola*, Pila<double>);
