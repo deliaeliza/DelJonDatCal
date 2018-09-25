@@ -18,7 +18,11 @@ std::string Calculadora::getCadenaPostFija() {
 double Calculadora::resultado() {
 	convertirExpresionPosfija();
 	Pila<double> numeros = Pila<double>();
-	return resultado(expresionPostFija, numeros);
+	try {
+		return resultado(expresionPostFija, numeros);
+	}catch(std::string error) {
+		throw error;
+	}
 }
 
 void Calculadora::convertirExpresionPosfija() {
@@ -138,33 +142,6 @@ std::string Calculadora::convertirString(char c) {
 	return expresion;
 }
 
-
-
-/*double CalcularPostFija::resultado() {
-Nodo* actual = exprecion.obtenerInicio();
-if (!actual)
-return 0;
-while (actual) {
-if (!esOperador(actual->valor)) {
-numeros.push(convertir(actual->valor));
-} else {
-try {
-double der;
-if (!numeros.estaVacia())
-der = numeros.pop();
-else throw "Error matematico";
-if (!numeros.estaVacia())
-numeros.push(realizarOperacion(der, numeros.pop(), actual->valor));
-else throw "Error matematico";
-
-} catch (std::string error) {
-throw(error);
-}
-}
-actual = actual->next;
-}
-}*/
-
 double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 	std::string signo = "";
 	while (expr->siguiente() != "") {
@@ -258,17 +235,5 @@ double Calculadora::realizarOperacion(double der, double izq, std::string operad
 	throw "Error matematico";
 }
 double Calculadora::convertir(std::string numero) {
-	//try {
 	return std::stod(numero);
-	/*} catch (const std::invalid_argument& ia) {
-	throw "Error matematico";
-	}*/
-
-}
-
-
-void Calculadora::imprimirCola() {
-	while (expresionPostFija->siguiente() != "") {
-		std::cout << expresionPostFija->dequeue() << " ";
-	}
 }
