@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
-#include "interfaz.h"
-#include "control.h"
+//#include "interfaz.h"
+//#include "control.h"
+#include "calculadora.h"
 
 
 int main() {
-	/*
+	
 	Lista *p = new Lista();
-	*/
+	
 	/*
 	p->insertarElemento('-');
 	p->insertarElemento('+');
@@ -134,7 +135,7 @@ int main() {
 	p->insertarElemento('4');
 	p->insertarElemento(')');
 	*/
-	/*
+	
 	p->insertarElemento('(');
 	p->insertarElemento('-');
 	p->insertarElemento('-');
@@ -155,7 +156,7 @@ int main() {
 	p->insertarElemento('-');
 	p->insertarElemento('8');
 	p->insertarElemento(')');
-	*/
+	
 
 	//Calculadora c = Calculadora(p);
 
@@ -167,15 +168,9 @@ int main() {
 	//Interfaz inter = Interfaz();
 	//inter.armarCalculadora();
 
-	Control c = Control();
-	std::string expresion = "(--8*(67+9))^(2) + (-3)^3";
-
-	if (c.esValida(expresion)) {
-		std::cout << "La expresion es valida\n";
-	}
-	else {
-		std::cout << "La expresion no es valida\n";
-	}
+	Calculadora calculadora = Calculadora(p);
+	
+	std::cout << calculadora.resultado() << "\n";
 
 	system("pause");
 	return 0;

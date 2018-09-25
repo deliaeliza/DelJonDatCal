@@ -20,5 +20,7 @@ public:
 	static void removerEspacios(std::string&);
 private:
 	bool esValida(unsigned int, std::string);
+
+	Calculadora * calculadora; 
 };
 #endif // !CONTROL_H

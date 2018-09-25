@@ -191,6 +191,7 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 		}
 		else  if (actual == "(") {
 			Cola *aux = new Cola();
+			Pila<double> auxNumeros = Pila<double>();
 			unsigned int contador = 1;
 			actual = expr->dequeue();
 			double resultadoParentesis = 0;
@@ -201,7 +202,7 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 				if (actual == ")") {
 					contador--;
 					if (contador == 0) {
-						resultadoParentesis = resultado(aux,numeros);
+						resultadoParentesis = resultado(aux,auxNumeros);
 					}
 				}
 				else {
