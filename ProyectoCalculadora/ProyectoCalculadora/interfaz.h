@@ -13,7 +13,7 @@ public:
 private:
 	void armarInicio();
 	void calcularExpresion();
-	Control control;
+	Control *control;
 };
 
 #endif // !INTERFAZ_H

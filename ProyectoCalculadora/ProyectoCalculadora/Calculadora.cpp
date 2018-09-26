@@ -12,18 +12,19 @@ std::string Calculadora::getCadenaPostFija() {
 	return cadenaPostFija;
 }
 
-double Calculadora::resultado(Lista l) {
+double Calculadora::resultado(Lista& l) {
 	convertirExpresionPosfija(l);
 	Pila<double> numeros = Pila<double>();
 	try {
 		return resultado(expresionPostFija, numeros);
-	}catch(std::string error) {
+	}catch(const char* error) {
 		throw error;
 	}
 }
 
 void Calculadora::convertirExpresionPosfija(Lista& l) {
 	Pila<char> pila = Pila<char>();
+	cadenaPostFija = "";
 	convertirInterFijaPostFija(pila, l.obtenerInicio());
 }
 
@@ -150,7 +151,7 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 						numeros.push(realizarOperacion(num, numeros.pop(), actual));
 						//signo = "";
 					}
-					catch (std::string error) {
+					catch (const char* error) {
 						throw error;
 					}
 				}

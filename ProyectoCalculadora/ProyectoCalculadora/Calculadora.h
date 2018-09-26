@@ -15,7 +15,7 @@ public:
 	Calculadora();
 	~Calculadora();
 	std::string getCadenaPostFija();
-	double resultado(Lista);
+	double resultado(Lista&);
 private: 
 	int precedencia(char);
 	std::string convertirString(char);

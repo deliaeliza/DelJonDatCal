@@ -2,10 +2,11 @@
 
 
 Interfaz::Interfaz() {
-	control = Control();
+	control = new Control();
 }
 
 Interfaz::~Interfaz() {
+	delete control;
 }
 
 void Interfaz::armarInicio() {
@@ -28,9 +29,9 @@ void Interfaz::calcularExpresion() {
 	std::cout << "\n";
 	std::cout << "\t------------------------------------------\n\n";
 	try {
-		std::cout << "\t  El resultado es: " << control.obtenerResultado(expresion) << "\n\n";
+		std::cout << "\t  El resultado es: " << control->obtenerResultado(expresion) << "\n\n";
 		std::cout << "\t  Expresion en notacion Post-Fija:\n\n";
-		std::cout << "\t  " << control.obtenerPostFija() << "\n\n";
+		std::cout << "\t  " << control->obtenerPostFija() << "\n\n";
 		std::cout << "\t------------------------------------------\n\n";
 	}
 	catch (const char* error) {
