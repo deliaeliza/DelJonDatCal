@@ -1,14 +1,16 @@
 #include "interfaz.h"
 
-
+///<summary>Constructor de la clase</summary>
 Interfaz::Interfaz() {
 	control = new Control();
 }
 
+///<summary>Destructor de la clase</summary>
 Interfaz::~Interfaz() {
 	delete control;
 }
 
+///<summary>Muestra los caracteres validos en la consola</summary>
 void Interfaz::armarInicio() {
 	std::cout << "\t\t\tCALCULADORA\n\n";
 	std::cout << "\t------------------------------------------\n";
@@ -20,6 +22,7 @@ void Interfaz::armarInicio() {
 	std::cout << "\t------------------------------------------\n\n";
 }
 
+///<summary>Muestra los resultados de calcular la expresion entre-fija</summary>
 void Interfaz::calcularExpresion() {
 	std::string expresion;
 	armarInicio();
@@ -40,7 +43,7 @@ void Interfaz::calcularExpresion() {
 	}
 }
 
-
+///<summary>Metodo que muestra toda la interfaz al usuario, e interactua con el usuario</summary>
 void Interfaz::mostrarDatos() {
 	std::string continuar = "";
 	do {

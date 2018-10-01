@@ -5,6 +5,8 @@
 #include "control.h"
 #include <iostream>
 
+///<summary>Declaracion de la clase interfaz, que tendra las salidas 
+///que necesita el usuario</summary>
 class Interfaz {
 public:
 	Interfaz();

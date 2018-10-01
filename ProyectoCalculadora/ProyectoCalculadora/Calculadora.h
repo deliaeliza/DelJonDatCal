@@ -10,6 +10,9 @@
 #include "cola.h"
 #include "lista.h"
 
+
+///<summary>Clase Calculadora, Contiene los metodos de calcular y convertir
+/// una expresion post-fija</summary>
 class Calculadora {
 public:
 	Calculadora();

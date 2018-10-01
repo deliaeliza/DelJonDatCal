@@ -1,17 +1,23 @@
 #include "calculadora.h"
 
+///<summary>Constructor de clase, Inicializa un string, y la cola</summary>
 Calculadora::Calculadora() {
 	cadenaPostFija = "";
 	expresionPostFija = new Cola();
 }
+///<summary>Destructor de la clase</summary>
 Calculadora::~Calculadora() {
 	delete expresionPostFija;
 }
 
+///<summary>Devuelve el string que contiene la cadena postfija</summary>
 std::string Calculadora::getCadenaPostFija() {
 	return cadenaPostFija;
 }
 
+///<summary>Devuelve el resultado de evaluar la cadena postfija</summary>
+///<remarks>Recibe una lista por referencia</remarks>
+///<returns>Retorna un double con el resultado</returns>
 double Calculadora::resultado(Lista& l) {
 	convertirExpresionPosfija(l);
 	Pila<double> numeros = Pila<double>();
@@ -22,16 +28,19 @@ double Calculadora::resultado(Lista& l) {
 	}
 }
 
+///<summary>Metodo que llama al metodo que convierte a expresion post-fija</summary>
+///<remarks>Recibe una lista por referencia</remarks>
 void Calculadora::convertirExpresionPosfija(Lista& l) {
 	Pila<char> pila = Pila<char>();
 	cadenaPostFija = "";
 	convertirInterFijaPostFija(pila, l.obtenerInicio());
 }
 
-
+///<summary>Metodo recursivo que convierte la expresion entrefija a una expresion postfija</summary>
+///<remarks>Recibe una pila, y el primer elemento de la lista</remarks>
 void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 	char elemento;
-	if (!actual) { //actual == null
+	if (!actual) { ///actual == null
 		while (!pila.estaVacia()) {
 			elemento = pila.pop();
 			expresionPostFija->enqueue(convertirString(elemento));
@@ -39,6 +48,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 		}
 		return;
 	}
+	///Caso en que el elemento sea un digito
 	else if (isdigit(actual->valor)) {
 		std::string temp;
 		temp.append(1, actual->valor);
@@ -57,11 +67,15 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 		cadenaPostFija = cadenaPostFija + temp + " ";
 		temp = "";
 	}
+	///caso en el que el elemtento sea un (,
+	///Y mete el valor a la pila
 	else if (actual->valor == '(') {
 		pila.push(actual->valor);
 		expresionPostFija->enqueue(convertirString(actual->valor));
 		cadenaPostFija = cadenaPostFija + actual->valor + " ";
 	}
+	///caso en el que el elemento sea un ), 
+	///cuando eso pasa saca elementos de la pila hasta que encuentre a (
 	else if (actual->valor == ')') {
 		char signo;
 		while ((signo = pila.peek()) != '(') {
@@ -74,7 +88,9 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 		pila.pop();
 	}
 	else {
+		///caso en el que el valor sea un - o un +
 		if (actual->valor == '-' || actual->valor == '+') {
+			///Casos en el que el valor de - o + sea un operador de raiz
 			if (actual->prev && ( isdigit(actual->prev->valor) || actual->prev->valor == ')')) {
 				while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
 					elemento = pila.pop();
@@ -83,6 +99,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 				}
 				pila.push(actual->valor);
 			}
+			///Casos en el que los signos de - o + sean parte de un numero o un parentesis
 			if (!actual->prev || actual->prev->valor == '/' || actual->prev->valor == '*' ||
 				actual->prev->valor == '(' || actual->prev->valor == '^' || actual->prev->valor == '+' || 
 				actual->prev->valor == '-') {
@@ -120,7 +137,9 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 	convertirInterFijaPostFija(pila, actual->next);
 }
 
-
+///<summary>Consulta el operador de mayor importancia</summary>
+///<remarks>Recibe un operador valido, ya sea +,-,^,*,/,(</remarks>
+///<returns>Retorna un numero entero</returns>
 int Calculadora::precedencia(char c) {
 	if (c == '(')
 		return 1;
@@ -133,30 +152,38 @@ int Calculadora::precedencia(char c) {
 	return -1;
 }
 
+///<summary>Convierte un char a un string</summary>
+///<remarks>Recibe un char</remarks>
+///<returns>Devuelve un string</returns>
 std::string Calculadora::convertirString(char c) {
 	std::string expresion;
 	expresion = expresion + c;
 	return expresion;
 }
 
+///<summary>Calcula el resultado de la expresion postfija</summary>
+///<remarks>Recibe una cola, en la que esta la expresion postfija, y recibe una pila, en la que guardara 
+/// los numeros de la expresion</remarks>
+///<returns>Devuelve un double con el resultado</returns>
 double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 	std::string signo = "";
 	while (expr->siguiente() != "") {
 		std::string actual = expr->dequeue();
-		if (esOperador(actual)) {//Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
+		if (esOperador(actual)) {
+			///Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
 			if (!numeros.estaVacia()) {
 				double num = numeros.pop();
 				if (!numeros.estaVacia()) {
 					try {
 						numeros.push(realizarOperacion(num, numeros.pop(), actual));
-						//signo = "";
 					}
 					catch (const char* error) {
 						throw error;
 					}
 				}
 				else {
-					numeros.push(num); //Devuelve el numero porque no hay sufiecientes para realizar una operacion
+					/// Devuelve el numero porque no hay suficientes para realizar una operacion
+					numeros.push(num);
 					signo = ((signo == "") ? actual : unificarSignos(actual, signo));
 				}
 			}
@@ -189,7 +216,8 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 			numeros.push(resultadoParentesis);
 			signo = "";
 		}
-		else { //Es numero. No se verifica ")", se supone que es sintacticamente correcta
+		else { 
+			///Es numero. No se verifica ")", se supone que es sintacticamente correcta
 			numeros.push(convertir(signo + actual));
 			signo = "";
 		}
@@ -202,6 +230,9 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 	return numeros.pop();
 }
 
+///<summary>Resuelve signos de + y -</summary>
+///<remarks>Recibe el signo actual, y el anterior</remarks>
+///<returns>Devuelve un string con el resultado de resolver los signos anteriores</returns>
 std::string Calculadora::unificarSignos(std::string signoActual, std::string signoAnterior) {
 	if (signoAnterior == "+") {
 		if (signoActual == "-")
@@ -214,10 +245,16 @@ std::string Calculadora::unificarSignos(std::string signoActual, std::string sig
 	return signoAnterior;
 }
 
+///<summary>Verifica que un valor, es un operador o no</summary>
+///<remarks>Recibe un string con un valor actual</remarks>
+///<returns>Devuelve un bool con la verficacion</returns>
 bool Calculadora::esOperador(std::string item) {
 	return (item == "+" || item == "-" || item == "*" || item == "/" || item == "^");
 }
 
+///<summary>Realiza una operacion</summary>
+///<remarks>Recibe dos numeros y un operador</remarks>
+///<returns>Devuelve un double</returns>
 double Calculadora::realizarOperacion(double der, double izq, std::string operador) {
 	if (operador == "+")
 		return izq + der;
@@ -231,6 +268,10 @@ double Calculadora::realizarOperacion(double der, double izq, std::string operad
 		return izq / der;
 	throw "Error matematico";
 }
+
+///<summary>Convierte un string a un numero</summary>
+///<remarks>Recibe un string que contiene un numero</remarks>
+///<returns>Devuelve un double con el numero convertido</returns>
 double Calculadora::convertir(std::string numero) {
 	return std::stod(numero);
 }

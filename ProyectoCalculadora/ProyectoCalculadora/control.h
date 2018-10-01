@@ -6,6 +6,8 @@
 #include "calculadora.h"
 #include "lista.h"
 
+///<summary>Clase control, que intermedia entre la clase calculadora y la clase interfaz
+///Ademas contiene metodos generales.</summary>
 class Control {
 public:
 	Control();
@@ -18,6 +20,7 @@ private:
 	bool esValida(unsigned int, std::string);
 	static void removerEspacios(std::string&);
 	void pasarExpresionLista(std::string, Lista&);
+	void excepcionCantidadNumeros();
 	Calculadora * calculadora; 
 };
 #endif // !CONTROL_H

@@ -1,5 +1,5 @@
 // cola.h
-// Declaración de la clase Cola
+/// Declaración de la clase Cola
 
 #ifndef COLA_H
 #define COLA_H
