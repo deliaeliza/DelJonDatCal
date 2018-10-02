@@ -18,6 +18,7 @@ public:
 private:
 	static bool esOperador(char);
 	bool esValida(unsigned int, std::string);
+	void verificarMultiplicacion(std::string& exp);
 	static void removerEspacios(std::string&);
 	void pasarExpresionLista(std::string, Lista&);
 	void excepcionCantidadNumeros();
