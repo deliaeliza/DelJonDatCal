@@ -22,7 +22,7 @@ public:
 private: 
 	int precedencia(char);
 	std::string convertirString(char);
-	void convertirExpresionPosfija(Lista&);
+	void convertirExpresionPostFija(Lista&);
 	void convertirInterFijaPostFija(Pila<char>, Nodo*);
 
 	double resultado(Cola*, Pila<double>);

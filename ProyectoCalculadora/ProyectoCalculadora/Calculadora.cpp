@@ -19,7 +19,7 @@ std::string Calculadora::getCadenaPostFija() {
 ///<remarks>Recibe una lista por referencia</remarks>
 ///<returns>Retorna un double con el resultado</returns>
 double Calculadora::resultado(Lista& l) {
-	convertirExpresionPosfija(l);
+	convertirExpresionPostFija(l);
 	Pila<double> numeros = Pila<double>();
 	try {
 		return resultado(expresionPostFija, numeros);
@@ -30,7 +30,7 @@ double Calculadora::resultado(Lista& l) {
 
 ///<summary>Metodo que llama al metodo que convierte a expresion post-fija</summary>
 ///<remarks>Recibe una lista por referencia</remarks>
-void Calculadora::convertirExpresionPosfija(Lista& l) {
+void Calculadora::convertirExpresionPostFija(Lista& l) {
 	Pila<char> pila = Pila<char>();
 	cadenaPostFija = "";
 	convertirInterFijaPostFija(pila, l.obtenerInicio());
