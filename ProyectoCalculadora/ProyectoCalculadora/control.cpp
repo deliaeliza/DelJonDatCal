@@ -87,6 +87,13 @@ void Control::removerEspacios(std::string& exp) {
 	}
 }
 
+void Control::verificarMultiplicacion(std::string& exp) {
+	for (std::string::size_type i = 0; i < exp.size(); ++i)
+		if (isdigit(exp[i]) && i != exp.size() - 1 && exp[i + 1] == '(') {
+			exp.insert(i + 1, 1, '*');
+		}
+}
+
 ///<summary>Pasa la cadena que contiene la expresion entrefija a una lista</summary>
 ///<remarks>Llena una lista de caracteres</remarks>
 void Control::pasarExpresionLista(std::string expresion, Lista& expresionEntrefija) {
