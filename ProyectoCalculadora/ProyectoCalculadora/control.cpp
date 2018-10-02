@@ -80,18 +80,17 @@ void Control::removerEspacios(std::string& exp) {
 	for (std::string::size_type i = 0; i < exp.size(); ++i) {
 		if (exp[i] < 0)
 			throw "Error de sintaxis";
-		if (isspace(exp[i])) {
-			exp.erase(i, 1);
-			--i;
-		}
+		if (isspace(exp[i]))
+			exp.erase(i--, 1);
 	}
 }
 
+///<summary>Si encuentra un patron de un numero seguido por un parentesis de apertura, supone que en media hay una multiplicacion</summary>
+///<remarks>Recibe por referencia un string con la expresion entre fija</remarks>
 void Control::verificarMultiplicacion(std::string& exp) {
 	for (std::string::size_type i = 0; i < exp.size(); ++i)
 		if (isdigit(exp[i]) && i != exp.size() - 1 && exp[i + 1] == '(')
 			exp.insert(i + 1, 1, '*');
-
 }
 
 ///<summary>Pasa la cadena que contiene la expresion entrefija a una lista</summary>
@@ -106,7 +105,6 @@ void Control::pasarExpresionLista(std::string expresion, Lista& expresionEntrefi
 ///<remarks>Recibe por parametro la expresion entre-fija</remarks>
 ///<returns>Devuelve el resultado final</returns>
 double Control::obtenerResultado(std::string expr) {
-	//try {
 		removerEspacios(expr);
 		if (!esValida(expr))
 			throw "Error de sintaxis";
@@ -114,9 +112,6 @@ double Control::obtenerResultado(std::string expr) {
 		Lista aux = Lista();
 		pasarExpresionLista(expr, aux);
 		return calculadora->resultado(aux);
-	//} catch (const char* error) {
-	//	throw error;
-	//}
 }
 
 ///<summary>Metodo que devuelve la cadena que contiene la expresion post-fija</summary>

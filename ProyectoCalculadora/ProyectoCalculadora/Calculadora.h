@@ -26,11 +26,11 @@ private:
 	void convertirInterFijaPostFija(Pila<char>, Nodo*);
 
 	double resultado(Cola*, Pila<double>);
-	std::string unificarSignos(std::string signoActual, std::string signoAnterior);
+	std::string unificarSignos(std::string, std::string);
 	bool esOperador(std::string);
 	double realizarOperacion(double, double, std::string);
 	double convertir(std::string);
-
+	
 	Cola* expresionPostFija;
 	std::string cadenaPostFija;
 };

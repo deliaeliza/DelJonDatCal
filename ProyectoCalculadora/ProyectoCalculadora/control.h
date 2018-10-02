@@ -18,9 +18,9 @@ public:
 private:
 	static bool esOperador(char);
 	bool esValida(unsigned int, std::string);
-	void verificarMultiplicacion(std::string& exp);
+	void verificarMultiplicacion(std::string&);
 	static void removerEspacios(std::string&);
 	void pasarExpresionLista(std::string, Lista&);
-	Calculadora * calculadora; 
+	Calculadora * calculadora;
 };
 #endif // !CONTROL_H

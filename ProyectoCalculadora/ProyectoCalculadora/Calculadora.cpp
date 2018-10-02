@@ -18,22 +18,18 @@ std::string Calculadora::getCadenaPostFija() {
 ///<summary>Devuelve el resultado de evaluar la cadena postfija</summary>
 ///<remarks>Recibe una lista por referencia</remarks>
 ///<returns>Retorna un double con el resultado</returns>
-double Calculadora::resultado(Lista& l) {
-	convertirExpresionPostFija(l);
+double Calculadora::resultado(Lista& lista) {
+	convertirExpresionPostFija(lista);
 	Pila<double> numeros = Pila<double>();
-	try {
-		return resultado(expresionPostFija, numeros);
-	}catch(const char* error) {
-		throw error;
-	}
+	return resultado(expresionPostFija, numeros);
 }
 
 ///<summary>Metodo que llama al metodo que convierte a expresion post-fija</summary>
 ///<remarks>Recibe una lista por referencia</remarks>
-void Calculadora::convertirExpresionPostFija(Lista& l) {
+void Calculadora::convertirExpresionPostFija(Lista& lista) {
 	Pila<char> pila = Pila<char>();
 	cadenaPostFija = "";
-	convertirInterFijaPostFija(pila, l.obtenerInicio());
+	convertirInterFijaPostFija(pila, lista.obtenerInicio());
 }
 
 ///<summary>Metodo recursivo que convierte la expresion entrefija a una expresion postfija</summary>
@@ -173,14 +169,8 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 			///Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
 			if (!numeros.estaVacia()) {
 				double num = numeros.pop();
-				if (!numeros.estaVacia()) {
-					try {
-						numeros.push(realizarOperacion(num, numeros.pop(), actual));
-					}
-					catch (const char* error) {
-						throw error;
-					}
-				}
+				if (!numeros.estaVacia())
+					numeros.push(realizarOperacion(num, numeros.pop(), actual));
 				else {
 					/// Devuelve el numero porque no hay suficientes para realizar una operacion
 					numeros.push(num);
@@ -202,9 +192,8 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 				}
 				if (actual == ")") {
 					contador--;
-					if (contador == 0) {
+					if (contador == 0)
 						resultadoParentesis = resultado(aux,auxNumeros);
-					}
 				}
 				else {
 					aux->enqueue(actual);
@@ -223,9 +212,8 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 		}
 	}
 
-	if (numeros.peek() == -0) {
+	if (numeros.peek() == -0)
 		return 0;
-	}
 
 	return numeros.pop();
 }

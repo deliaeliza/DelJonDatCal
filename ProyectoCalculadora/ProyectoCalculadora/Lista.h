@@ -17,9 +17,9 @@ class Lista {
 public:
 	Lista();
 	~Lista();
-	bool insertarElemento(char item);
-	bool borrarElemento(char item);
-	int buscarElemento(char item);
+	bool insertarElemento(char);
+	bool borrarElemento(char);
+	int buscarElemento(char);
 	Nodo* obtenerInicio();
 	void mostrarLista();
 	void mostrarListaInvertida();
