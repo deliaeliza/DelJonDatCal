@@ -77,11 +77,14 @@ bool Control::esOperador(char item) {
 ///<summary>Remueve espacios de un string</summary>
 ///<remarks>Recibe la direccion de memoria de la expresion entre fija</remarks>
 void Control::removerEspacios(std::string& exp) {
-	for (std::string::size_type i = 0; i < exp.size(); ++i)
+	for (std::string::size_type i = 0; i < exp.size(); ++i) {
+		if (exp[i] < 0)
+			throw "Error de sintaxis";
 		if (isspace(exp[i])) {
 			exp.erase(i, 1);
 			--i;
 		}
+	}
 }
 
 ///<summary>Pasa la cadena que contiene la expresion entrefija a una lista</summary>
@@ -96,8 +99,9 @@ void Control::pasarExpresionLista(std::string expresion, Lista& expresionEntrefi
 ///<remarks>Recibe por parametro la expresion entre-fija</remarks>
 ///<returns>Devuelve el resultado final</returns>
 double Control::obtenerResultado(std::string expr) {
-	removerEspacios(expr);
+	
 	try {
+		removerEspacios(expr);
 		Lista aux = Lista();
 		pasarExpresionLista(expr, aux);
 		if (!esValida(expr))
