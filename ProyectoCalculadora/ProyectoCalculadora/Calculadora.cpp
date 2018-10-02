@@ -21,11 +21,11 @@ std::string Calculadora::getCadenaPostFija() {
 double Calculadora::resultado(Lista& l) {
 	convertirExpresionPostFija(l);
 	Pila<double> numeros = Pila<double>();
-	try {
+	//try {
 		return resultado(expresionPostFija, numeros);
-	}catch(const char* error) {
-		throw error;
-	}
+	//}catch(const char* error) {
+	//	throw error;
+	//}
 }
 
 ///<summary>Metodo que llama al metodo que convierte a expresion post-fija</summary>
@@ -174,12 +174,12 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 			if (!numeros.estaVacia()) {
 				double num = numeros.pop();
 				if (!numeros.estaVacia()) {
-					try {
+					//try {
 						numeros.push(realizarOperacion(num, numeros.pop(), actual));
-					}
+					/*}
 					catch (const char* error) {
 						throw error;
-					}
+					}*/
 				}
 				else {
 					/// Devuelve el numero porque no hay suficientes para realizar una operacion
