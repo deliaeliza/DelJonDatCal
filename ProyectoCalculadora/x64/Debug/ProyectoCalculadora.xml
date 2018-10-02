@@ -47,7 +47,7 @@ los numeros de la expresion</remarks>
             <summary>Metodo recursivo que convierte la expresion entrefija a una expresion postfija</summary>
             <remarks>Recibe una pila, y el primer elemento de la lista</remarks>
         </member>
-        <member name="M:Calculadora.convertirExpresionPosfija(Lista*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+        <member name="M:Calculadora.convertirExpresionPostFija(Lista*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
             <summary>Metodo que llama al metodo que convierte a expresion post-fija</summary>
             <remarks>Recibe una lista por referencia</remarks>
         </member>
@@ -64,25 +64,6 @@ los numeros de la expresion</remarks>
         </member>
         <member name="M:Calculadora.#ctor">
             <summary>Constructor de clase, Inicializa un string, y la cola</summary>
-        </member>
-        <member name="M:Interfaz.mostrarDatos">
-            <summary>Metodo que muestra toda la interfaz al usuario, e interactua con el usuario</summary>
-        </member>
-        <member name="M:Interfaz.calcularExpresion">
-            <summary>Muestra los resultados de calcular la expresion entre-fija</summary>
-        </member>
-        <member name="M:Interfaz.armarInicio">
-            <summary>Muestra los caracteres validos en la consola</summary>
-        </member>
-        <member name="M:Interfaz.Dispose">
-            <summary>Destructor de la clase</summary>
-        </member>
-        <member name="M:Interfaz.#ctor">
-            <summary>Constructor de la clase</summary>
-        </member>
-        <member name="T:Interfaz">
-            <summary>Declaracion de la clase interfaz, que tendra las salidas 
-que necesita el usuario</summary>
         </member>
         <member name="M:Control.obtenerPostFija">
             <summary>Metodo que devuelve la cadena que contiene la expresion post-fija</summary>
@@ -123,6 +104,25 @@ Este metodo llama a otro metodo que valida la expresion, pero le pasa una posici
         </member>
         <member name="M:Control.#ctor">
             <summary>Constructor de la clase </summary>
+        </member>
+        <member name="M:Interfaz.mostrarDatos">
+            <summary>Metodo que muestra toda la interfaz al usuario, e interactua con el usuario</summary>
+        </member>
+        <member name="M:Interfaz.calcularExpresion">
+            <summary>Muestra los resultados de calcular la expresion entre-fija</summary>
+        </member>
+        <member name="M:Interfaz.armarInicio">
+            <summary>Muestra los caracteres validos en la consola</summary>
+        </member>
+        <member name="M:Interfaz.Dispose">
+            <summary>Destructor de la clase</summary>
+        </member>
+        <member name="M:Interfaz.#ctor">
+            <summary>Constructor de la clase</summary>
+        </member>
+        <member name="T:Interfaz">
+            <summary>Declaracion de la clase interfaz, que tendra las salidas 
+que necesita el usuario</summary>
         </member>
         <member name="T:Control">
             <summary>Clase control, que intermedia entre la clase calculadora y la clase interfaz

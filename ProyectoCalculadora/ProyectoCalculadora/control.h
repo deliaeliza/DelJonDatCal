@@ -21,7 +21,6 @@ private:
 	void verificarMultiplicacion(std::string& exp);
 	static void removerEspacios(std::string&);
 	void pasarExpresionLista(std::string, Lista&);
-	void excepcionCantidadNumeros();
 	Calculadora * calculadora; 
 };
 #endif // !CONTROL_H

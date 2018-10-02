@@ -39,7 +39,7 @@ bool Control::esValida(unsigned int pos, std::string expr) {
 			if (contadorNumeros <= 5)
 				contadorNumeros = 0;
 			else
-				excepcionCantidadNumeros();
+				throw "Solo acepta numeros con maximo 5 cifras\n\t  Disposiciones del profesor";
 		}
 		if (!esOperador(expr[pos]) && !isdigit(expr[pos]) && expr[pos] != ')' && expr[pos] != '(')
 			return false;
@@ -63,7 +63,7 @@ bool Control::esValida(unsigned int pos, std::string expr) {
 	if (!parentesis.estaVacia())
 		return false;
 	if (contadorNumeros > 5)
-		excepcionCantidadNumeros();
+		throw "Solo acepta numeros con maximo 5 cifras\n\t  Disposiciones del profesor";
 	return true;
 }
 
@@ -89,9 +89,9 @@ void Control::removerEspacios(std::string& exp) {
 
 void Control::verificarMultiplicacion(std::string& exp) {
 	for (std::string::size_type i = 0; i < exp.size(); ++i)
-		if (isdigit(exp[i]) && i != exp.size() - 1 && exp[i + 1] == '(') {
+		if (isdigit(exp[i]) && i != exp.size() - 1 && exp[i + 1] == '(')
 			exp.insert(i + 1, 1, '*');
-		}
+
 }
 
 ///<summary>Pasa la cadena que contiene la expresion entrefija a una lista</summary>
@@ -106,17 +106,17 @@ void Control::pasarExpresionLista(std::string expresion, Lista& expresionEntrefi
 ///<remarks>Recibe por parametro la expresion entre-fija</remarks>
 ///<returns>Devuelve el resultado final</returns>
 double Control::obtenerResultado(std::string expr) {
-	
-	try {
+	//try {
 		removerEspacios(expr);
-		Lista aux = Lista();
-		pasarExpresionLista(expr, aux);
 		if (!esValida(expr))
 			throw "Error de sintaxis";
+		verificarMultiplicacion(expr);
+		Lista aux = Lista();
+		pasarExpresionLista(expr, aux);
 		return calculadora->resultado(aux);
-	} catch (const char* error) {
-		throw error;
-	}
+	//} catch (const char* error) {
+	//	throw error;
+	//}
 }
 
 ///<summary>Metodo que devuelve la cadena que contiene la expresion post-fija</summary>
@@ -126,13 +126,4 @@ std::string Control::obtenerPostFija() {
 	if (postfija == "")
 		throw "Error, no hay expresion";
 	return postfija;
-}
-
-void Control::excepcionCantidadNumeros() {
-	try {
-		throw "Solo acepta numeros con maximo 5 cifras\n\t  Disposiciones del profesor";
-	}
-	catch (const char* error) {
-		throw error;
-	}
 }
