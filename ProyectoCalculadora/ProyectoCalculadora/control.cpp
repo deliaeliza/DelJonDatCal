@@ -85,11 +85,12 @@ void Control::removerEspacios(std::string& exp) {
 	}
 }
 
-///<summary>Si encuentra un patron de un numero seguido por un parentesis de apertura, supone que en media hay una multiplicacion</summary>
+///<summary>Si encuentra un patron de un numero seguido por un parentesis de apertura,
+///supone que en media hay una multiplicacion</summary>
 ///<remarks>Recibe por referencia un string con la expresion entre fija</remarks>
 void Control::verificarMultiplicacion(std::string& exp) {
 	for (std::string::size_type i = 0; i < exp.size(); ++i)
-		if (isdigit(exp[i]) && i != exp.size() - 1 && exp[i + 1] == '(')
+		if ((isdigit(exp[i]) || exp[i] == ')') && i != exp.size() - 1 && exp[i + 1] == '(')
 			exp.insert(i + 1, 1, '*');
 }
 

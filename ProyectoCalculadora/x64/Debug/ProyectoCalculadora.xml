@@ -23,11 +23,11 @@
             <returns>Devuelve un bool con la verficacion</returns>
         </member>
         <member name="M:Calculadora.unificarSignos(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;,std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;)">
-            <summary>Resuelve signos de + y -</summary>
-            <remarks>Recibe el signo actual, y el anterior</remarks>
-            <returns>Devuelve un string con el resultado de resolver los signos anteriores</returns>
-        </member>
-        <member name="M:Calculadora.resultado(Cola*,Pila&lt;System.Double&gt;)">
+Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
+Devuelve el numero porque no hay suficientes para realizar una operacion
+Es numero. No se verifica ")", se supone que es sintacticamente correcta
+<summary>Resuelve signos de + y -</summary><remarks>Recibe el signo actual, y el anterior</remarks><returns>Devuelve un string con el resultado de resolver los signos anteriores</returns></member>
+        <member name="M:Calculadora.resultado(Cola*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,Pila&lt;System.Double&gt;)">
             <summary>Calcula el resultado de la expresion postfija</summary>
             <remarks>Recibe una cola, en la que esta la expresion postfija, y recibe una pila, en la que guardara 
 los numeros de la expresion</remarks>
@@ -65,6 +65,25 @@ los numeros de la expresion</remarks>
         <member name="M:Calculadora.#ctor">
             <summary>Constructor de clase, Inicializa un string, y la cola</summary>
         </member>
+        <member name="M:Interfaz.mostrarDatos">
+            <summary>Metodo que muestra toda la interfaz al usuario, e interactua con el usuario</summary>
+        </member>
+        <member name="M:Interfaz.calcularExpresion">
+            <summary>Muestra los resultados de calcular la expresion entre-fija</summary>
+        </member>
+        <member name="M:Interfaz.armarInicio">
+            <summary>Muestra los caracteres validos en la consola</summary>
+        </member>
+        <member name="M:Interfaz.Dispose">
+            <summary>Destructor de la clase</summary>
+        </member>
+        <member name="M:Interfaz.#ctor">
+            <summary>Constructor de la clase</summary>
+        </member>
+        <member name="T:Interfaz">
+            <summary>Declaracion de la clase interfaz, que tendra las salidas 
+que necesita el usuario</summary>
+        </member>
         <member name="M:Control.obtenerPostFija">
             <summary>Metodo que devuelve la cadena que contiene la expresion post-fija</summary>
             <returns>Devuelve un string con la expresion post-fija</returns>
@@ -78,6 +97,11 @@ en donde encapsula varios metodos</summary>
         <member name="M:Control.pasarExpresionLista(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;,Lista*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
             <summary>Pasa la cadena que contiene la expresion entrefija a una lista</summary>
             <remarks>Llena una lista de caracteres</remarks>
+        </member>
+        <member name="M:Control.verificarMultiplicacion(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+            <summary>Si encuentra un patron de un numero seguido por un parentesis de apertura,
+supone que en media hay una multiplicacion</summary>
+            <remarks>Recibe por referencia un string con la expresion entre fija</remarks>
         </member>
         <member name="M:Control.removerEspacios(std.basic_string&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte,std.char_traits{System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte},std.allocator&lt;System.SByte!System.Runtime.CompilerServices.IsSignUnspecifiedByte&gt;&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
             <summary>Remueve espacios de un string</summary>
@@ -104,25 +128,6 @@ Este metodo llama a otro metodo que valida la expresion, pero le pasa una posici
         </member>
         <member name="M:Control.#ctor">
             <summary>Constructor de la clase </summary>
-        </member>
-        <member name="M:Interfaz.mostrarDatos">
-            <summary>Metodo que muestra toda la interfaz al usuario, e interactua con el usuario</summary>
-        </member>
-        <member name="M:Interfaz.calcularExpresion">
-            <summary>Muestra los resultados de calcular la expresion entre-fija</summary>
-        </member>
-        <member name="M:Interfaz.armarInicio">
-            <summary>Muestra los caracteres validos en la consola</summary>
-        </member>
-        <member name="M:Interfaz.Dispose">
-            <summary>Destructor de la clase</summary>
-        </member>
-        <member name="M:Interfaz.#ctor">
-            <summary>Constructor de la clase</summary>
-        </member>
-        <member name="T:Interfaz">
-            <summary>Declaracion de la clase interfaz, que tendra las salidas 
-que necesita el usuario</summary>
         </member>
         <member name="T:Control">
             <summary>Clase control, que intermedia entre la clase calculadora y la clase interfaz

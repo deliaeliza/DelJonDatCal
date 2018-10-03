@@ -3,11 +3,10 @@
 ///<summary>Constructor de clase, Inicializa un string, y la cola</summary>
 Calculadora::Calculadora() {
 	cadenaPostFija = "";
-	expresionPostFija = new Cola();
+	expresionPostFija = Cola();
 }
 ///<summary>Destructor de la clase</summary>
 Calculadora::~Calculadora() {
-	delete expresionPostFija;
 }
 
 ///<summary>Devuelve el string que contiene la cadena postfija</summary>
@@ -39,7 +38,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 	if (!actual) { ///actual == null
 		while (!pila.estaVacia()) {
 			elemento = pila.pop();
-			expresionPostFija->enqueue(convertirString(elemento));
+			expresionPostFija.enqueue(convertirString(elemento));
 			cadenaPostFija = cadenaPostFija + elemento + " ";
 		}
 		return;
@@ -59,7 +58,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 				break;
 			}
 		}
-		expresionPostFija->enqueue(temp);
+		expresionPostFija.enqueue(temp);
 		cadenaPostFija = cadenaPostFija + temp + " ";
 		temp = "";
 	}
@@ -67,7 +66,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 	///Y mete el valor a la pila
 	else if (actual->valor == '(') {
 		pila.push(actual->valor);
-		expresionPostFija->enqueue(convertirString(actual->valor));
+		expresionPostFija.enqueue(convertirString(actual->valor));
 		cadenaPostFija = cadenaPostFija + actual->valor + " ";
 	}
 	///caso en el que el elemento sea un ), 
@@ -76,10 +75,10 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 		char signo;
 		while ((signo = pila.peek()) != '(') {
 			pila.pop();
-			expresionPostFija->enqueue(convertirString(signo));
+			expresionPostFija.enqueue(convertirString(signo));
 			cadenaPostFija = cadenaPostFija + signo + " ";
 		}
-		expresionPostFija->enqueue(convertirString(actual->valor));
+		expresionPostFija.enqueue(convertirString(actual->valor));
 		cadenaPostFija = cadenaPostFija + actual->valor + " ";
 		pila.pop();
 	}
@@ -90,7 +89,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 			if (actual->prev && ( isdigit(actual->prev->valor) || actual->prev->valor == ')')) {
 				while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
 					elemento = pila.pop();
-					expresionPostFija->enqueue(convertirString(elemento));
+					expresionPostFija.enqueue(convertirString(elemento));
 					cadenaPostFija = cadenaPostFija + elemento + " ";
 				}
 				pila.push(actual->valor);
@@ -101,12 +100,12 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 				actual->prev->valor == '-') {
 				while (actual->next) {
 					if (!isdigit(actual->next->valor) && actual->next->valor != '(') {
-						expresionPostFija->enqueue(convertirString(actual->valor));
+						expresionPostFija.enqueue(convertirString(actual->valor));
 						cadenaPostFija = cadenaPostFija + actual->valor;
 						actual = actual->next;
 					}
 					else {
-						expresionPostFija->enqueue(convertirString(actual->valor));
+						expresionPostFija.enqueue(convertirString(actual->valor));
 						cadenaPostFija = cadenaPostFija + actual->valor;
 						break;
 					}
@@ -116,7 +115,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 		else {
 			while (!pila.estaVacia() && precedencia(pila.peek()) >= precedencia(actual->valor)) {
 				elemento = pila.pop();
-				expresionPostFija->enqueue(convertirString(elemento));
+				expresionPostFija.enqueue(convertirString(elemento));
 				cadenaPostFija = cadenaPostFija + elemento + " ";
 			}
 			pila.push(actual->valor);
@@ -125,7 +124,7 @@ void Calculadora::convertirInterFijaPostFija(Pila<char> pila, Nodo* actual) {
 	if (!actual) {
 		while (!pila.estaVacia()) {
 			elemento = pila.pop();
-			expresionPostFija->enqueue(convertirString(elemento));
+			expresionPostFija.enqueue(convertirString(elemento));
 			cadenaPostFija = cadenaPostFija + elemento + " ";
 		}
 		return;
@@ -161,10 +160,10 @@ std::string Calculadora::convertirString(char c) {
 ///<remarks>Recibe una cola, en la que esta la expresion postfija, y recibe una pila, en la que guardara 
 /// los numeros de la expresion</remarks>
 ///<returns>Devuelve un double con el resultado</returns>
-double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
+double Calculadora::resultado(Cola& expr, Pila<double> numeros) {
 	std::string signo = "";
-	while (expr->siguiente() != "") {
-		std::string actual = expr->dequeue();
+	while (expr.siguiente() != "") {
+		std::string actual = expr.dequeue();
 		if (esOperador(actual)) {
 			///Si hay dos numeros en pila, es operacion, si hay solo uno, el signo es del siguiente numero
 			if (!numeros.estaVacia()) {
@@ -181,10 +180,10 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 				signo = ((signo == "") ? actual : unificarSignos(actual, signo));
 		}
 		else  if (actual == "(") {
-			Cola *aux = new Cola();
+			Cola aux = Cola();
 			Pila<double> auxNumeros = Pila<double>();
 			unsigned int contador = 1;
-			actual = expr->dequeue();
+			actual = expr.dequeue();
 			double resultadoParentesis = 0;
 			while (contador != 0) {
 				if (actual == "(") {
@@ -193,11 +192,15 @@ double Calculadora::resultado(Cola* expr, Pila<double> numeros) {
 				if (actual == ")") {
 					contador--;
 					if (contador == 0)
-						resultadoParentesis = resultado(aux,auxNumeros);
+						resultadoParentesis = resultado(aux, auxNumeros);
+					else {
+						aux.enqueue(actual);
+						actual = expr.dequeue();
+					}
 				}
 				else {
-					aux->enqueue(actual);
-					actual = expr->dequeue();
+					aux.enqueue(actual);
+					actual = expr.dequeue();
 				}
 			}
 			if (signo == "-")
