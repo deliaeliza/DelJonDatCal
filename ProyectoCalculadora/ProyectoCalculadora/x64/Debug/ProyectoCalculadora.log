@@ -1,6 +1,11 @@
 ﻿  calculadora.cpp
+  cola.cpp
   control.cpp
   interfaz.cpp
+  lista.cpp
+c:\users\jonat\documents\github\proyecto-calculadora\proyectocalculadora\proyectocalculadora\lista.cpp(41): warning C4305: 'return': truncation from 'int' to 'bool'
+c:\users\jonat\documents\github\proyecto-calculadora\proyectocalculadora\proyectocalculadora\lista.cpp(46): warning C4553: '==': result of expression not used; did you intend '='?
+c:\users\jonat\documents\github\proyecto-calculadora\proyectocalculadora\proyectocalculadora\lista.cpp(106): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   main.cpp
-  Generando código...
-  ProyectoCalculadora.vcxproj -> C:\Users\Elizabeth Hernandez\Documents\GitHub\DelJonDatCal\ProyectoCalculadora\x64\Debug\ProyectoCalculadora.exe
+  Generating Code...
+  ProyectoCalculadora.vcxproj -> C:\Users\jonat\Documents\GitHub\Proyecto-Calculadora\ProyectoCalculadora\x64\Debug\ProyectoCalculadora.exe
